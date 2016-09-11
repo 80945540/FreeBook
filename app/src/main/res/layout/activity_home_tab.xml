@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.lance.freebook.MVP.Home.HomeTabActivity">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:fitsSystemWindows="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <RelativeLayout
+            style="@style/ActivityTitle">
+            <TextView
+                android:id="@+id/hometab_toolbar_textview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="推荐"
+                android:textColor="@color/white"
+                android:textSize="22dp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    <FrameLayout
+        android:id="@+id/hometab_context"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioGroup
+            android:id="@+id/hometab_radio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="bottom"
+            android:paddingTop="5dp"
+            android:orientation="horizontal" >
+            <RadioButton
+                android:id="@+id/rb_recommend"
+                style="@style/RadioButtonBottomTab"
+                android:checked="true"
+                android:drawableTop="@drawable/tab_0_back"
+                android:text="推荐" />
+            <RadioButton
+                android:id="@+id/rb_stack"
+                style="@style/RadioButtonBottomTab"
+                android:drawableTop="@drawable/tab_1_back"
+                android:text="书库" />
+            <RadioButton
+                android:id="@+id/rb_search"
+                style="@style/RadioButtonBottomTab"
+                android:drawableTop="@drawable/tab_2_back"
+                android:text="搜索" />
+
+            <RadioButton
+                android:drawableTop="@drawable/tab_3_back"
+                android:id="@+id/rb_download"
+                style="@style/RadioButtonBottomTab"
+                android:text="下载" />
+        </RadioGroup>
+    </LinearLayout>
+</LinearLayout>
