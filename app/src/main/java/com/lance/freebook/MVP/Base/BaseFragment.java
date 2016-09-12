@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 /**
  * Created by XY on 2016/9/11.
  */
-public abstract class BaseFragment extends Fragment implements View.OnClickListener{
+public abstract class BaseFragment extends Fragment{
 
     private View mRootView;
     @Nullable

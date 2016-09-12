@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.lance.freebook.MVP.Base.BaseFragment;
 import com.lance.freebook.R;
 
+import butterknife.ButterKnife;
+
 
 public class HomeDownloadFragment extends BaseFragment {
 
@@ -24,8 +26,4 @@ public class HomeDownloadFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 }

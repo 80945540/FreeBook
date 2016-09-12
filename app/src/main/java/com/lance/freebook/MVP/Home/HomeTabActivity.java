@@ -1,8 +1,8 @@
 package com.lance.freebook.MVP.Home;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -11,21 +11,15 @@ import com.lance.freebook.MVP.Home.Fragment.FragmentController;
 import com.lance.freebook.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class HomeTabActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
+
+    @BindView(R.id.hometab_radio)
+    RadioGroup hometabRadio;
     @BindView(R.id.hometab_toolbar_textview_title)
     TextView hometabToolbarTextviewTitle;
-    @BindView(R.id.rb_recommend)
-    RadioButton rbRecommend;
-    @BindView(R.id.rb_stack)
-    RadioButton rbStack;
-    @BindView(R.id.rb_search)
-    RadioButton rbSearch;
-    @BindView(R.id.rb_download)
-    RadioButton rbDownload;
-
-    RadioGroup hometabRadio;
     private FragmentController controller;
 
     @Override
@@ -37,7 +31,7 @@ public class HomeTabActivity extends BaseActivity implements RadioGroup.OnChecke
 
     @Override
     protected void findViewById() {
-        hometabRadio= (RadioGroup) findViewById(R.id.hometab_radio);
+        hometabRadio = (RadioGroup) findViewById(R.id.hometab_radio);
     }
 
     @Override
@@ -59,6 +53,7 @@ public class HomeTabActivity extends BaseActivity implements RadioGroup.OnChecke
     public void onClick(View view) {
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -67,19 +62,24 @@ public class HomeTabActivity extends BaseActivity implements RadioGroup.OnChecke
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-        switch (checkedId){
+        switch (checkedId) {
             case R.id.rb_recommend:
+                hometabToolbarTextviewTitle.setText("推荐");
                 controller.showFragment(0);
                 break;
             case R.id.rb_stack:
+                hometabToolbarTextviewTitle.setText("书库");
                 controller.showFragment(1);
                 break;
             case R.id.rb_search:
+                hometabToolbarTextviewTitle.setText("搜索");
                 controller.showFragment(2);
                 break;
             case R.id.rb_download:
+                hometabToolbarTextviewTitle.setText("下载");
                 controller.showFragment(3);
                 break;
         }
     }
+
 }
