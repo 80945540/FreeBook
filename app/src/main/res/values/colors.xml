@@ -10,4 +10,10 @@
     <color name="black">#000</color>
     <color name="black_30">#30000000</color>
     <color name="txt_gray">#999999</color>
+    <color name="bag_gray_transparent">#00FFFFFF</color>
+    <color name="text_color_context">#666666</color><!-- 字体颜色  标题灰色 -->
+    <color name="text_color_title">#333333</color><!-- 字体颜色  标题灰色 -->
+    <color name="text_color_qianhui">#999999</color><!-- 字体颜色  标题灰色 -->
+    <color name="title_bag">#e84d34</color>
+    <color name="text_color_golden">#fe6925</color>
 </resources>

@@ -23,11 +23,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ButterKnife.bind(this);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 锁定竖屏
 		// setTheme(R.style.AnimationActivity);//设置切换动画
 		mContext = getActivityContext();
 		initView();
+		ButterKnife.bind(this);
+		initdata();
 		MyApplication.getInstance().addActivity(this);
 	}
 	/**
@@ -35,9 +36,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 	 */
 	private void initView() {
 		loadViewLayout();
+	}
+	private void initdata(){
 		findViewById();
 		setListener();
-//		checkNetWork();
 		processLogic();
 	}
 	@Override
