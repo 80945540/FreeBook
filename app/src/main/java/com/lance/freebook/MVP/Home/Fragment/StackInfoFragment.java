@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.lance.freebook.Date.HttpData.HttpData;
 import com.lance.freebook.MVP.Adapter.BookInfoListAdapter;
 import com.lance.freebook.MVP.Base.BaseFragment;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
@@ -18,11 +20,17 @@ import com.xiaochao.lcrapiddeveloplibrary.container.DefaultHeader;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 import com.xiaochao.lcrapiddeveloplibrary.widget.SpringView;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observer;
 
 
 public class StackInfoFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener ,SpringView.OnFreshListener{
@@ -69,19 +77,49 @@ public class StackInfoFragment extends BaseFragment implements BaseQuickAdapter.
                 Toast.makeText(getContext(), "点击了", Toast.LENGTH_SHORT).show();
             }
         });
-        List<BookInfoListDto> expertListDtos=new ArrayList<BookInfoListDto>();
-        for(int i=0;i<30;i++){
-            expertListDtos.add(new BookInfoListDto("http://img.txt99.cc/Cover/38/38848.jpg","美人犹记","七和香","上一辈子，韩元蝶就没有喜欢过程安澜，重生之后，她高兴坏了，这次终于可以和程安澜毫无关系了吧！..."));
-        }
-        mQuickAdapter.setNewData(expertListDtos);//新增数据
-        mQuickAdapter.openLoadMore(30,true);//设置是否可以下拉加载  以及加载条数
-        stackInfoSpringview.onFinishFreshAndLoad();//刷新完成
-        stackInfoProgress.showContent();
+        httpdata();
     }
+    public void httpdata(){
+        HttpData.getInstance().getHtml(new Observer<String>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("HomeTabActivity", e.toString());
+            }
+
+            @Override
+            public void onNext(String html) {
+                List<BookInfoListDto> expertListDtos=new ArrayList<BookInfoListDto>();
+                Document doc = Jsoup.parse(html);
+                Element content = doc.select("ul").first();
+                Elements links = content.select("li");
+                for (Element link : links) {
+                    Elements temp = link.select("a");
+                    Elements temp1 = link.select("img");
+                    Elements temp3 = link.select("p:eq(2)");
+                    Elements temp4 = link.select("p:eq(3)");
+                    String relHref = temp.attr("href");
+                    String relHref1 = temp1.attr("src");
+                    String relHref2 = temp1.attr("alt");
+                    String relHref3 = temp3.text();
+                    String relHref4 = temp4.text();
+                    Log.d("StackInfoFragment", relHref4);
+                    expertListDtos.add(new BookInfoListDto(relHref1,relHref2,relHref3,relHref4,relHref));
+                }
+                mQuickAdapter.setNewData(expertListDtos);//新增数据
+                mQuickAdapter.openLoadMore(30,true);//设置是否可以下拉加载  以及加载条数
+                stackInfoSpringview.onFinishFreshAndLoad();//刷新完成
+                stackInfoProgress.showContent();
+            }
+        });
+    }
     @Override
     public void onRefresh() {
-
+        httpdata();
     }
 
     @Override

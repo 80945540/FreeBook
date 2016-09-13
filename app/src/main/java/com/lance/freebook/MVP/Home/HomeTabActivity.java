@@ -52,28 +52,7 @@ public class HomeTabActivity extends BaseActivity implements RadioGroup.OnChecke
 
     @Override
     protected void processLogic() {
-        HttpData.getInstance().getHtml(new Observer<String>() {
-            @Override
-            public void onCompleted() {
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d("HomeTabActivity", e.toString());
-            }
-
-            @Override
-            public void onNext(String html) {
-                Document doc = Jsoup.parse(html);
-                Element content = doc.select("ul").first();
-                Elements links = content.select("li");
-                for (Element element : links) {
-                    String itemStr= element.html();
-                    Log.d("HomeTabActivity", itemStr);
-                }
-            }
-        });
     }
 
     @Override
