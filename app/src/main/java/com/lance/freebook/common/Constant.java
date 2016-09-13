@@ -5,5 +5,5 @@ package com.lance.freebook.common;
  * 本类存放项目所需常量
  */
 public class Constant {
-    public static String API_SERVER="http://apptest.youzy.cn";
+    public static String API_SERVER="http://m.txt99.cc/";
 }

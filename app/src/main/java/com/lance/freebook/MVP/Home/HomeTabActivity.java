@@ -2,16 +2,27 @@ package com.lance.freebook.MVP.Home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.lance.freebook.Date.HttpData.HttpData;
 import com.lance.freebook.MVP.Base.BaseActivity;
 import com.lance.freebook.MVP.Home.Fragment.FragmentController;
 import com.lance.freebook.R;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observer;
 
 public class HomeTabActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -41,7 +52,28 @@ public class HomeTabActivity extends BaseActivity implements RadioGroup.OnChecke
 
     @Override
     protected void processLogic() {
+        HttpData.getInstance().getHtml(new Observer<String>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("HomeTabActivity", e.toString());
+            }
+
+            @Override
+            public void onNext(String html) {
+                Document doc = Jsoup.parse(html);
+                Element content = doc.select("ul").first();
+                Elements links = content.select("li");
+                for (Element element : links) {
+                    String itemStr= element.html();
+                    Log.d("HomeTabActivity", itemStr);
+                }
+            }
+        });
     }
 
     @Override

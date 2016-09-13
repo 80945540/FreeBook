@@ -2,7 +2,8 @@ package com.lance.freebook.MyApplication;
 
 import android.app.Activity;
 import android.app.Application;
-import android.util.Log;
+
+import com.lance.freebook.MVP.WelcomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
