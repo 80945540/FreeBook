@@ -50,7 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="#eeeeee"
+            android:background="#fd9573"
+            android:textSize="20dp"
+            android:textColor="#fff"
             android:text="@string/progressActivityErrorButton"/>
 
     </LinearLayout>

@@ -24,10 +24,10 @@ public class BookInfoListAdapter extends BaseQuickAdapter<BookInfoListDto> {
         Glide.with(mContext)
                 .load(item.getImageUrl())
                 .crossFade()
-                .placeholder(R.mipmap.image_error)
+                .placeholder(R.mipmap.nocover)
                 .into((ImageView) helper.getView(R.id.book_info_image_url));
         helper.setText(R.id.book_info_textview_name,item.getBookName());
-        helper.setText(R.id.book_info_textview_author,"作者:"+item.getAuthor());
+        helper.setText(R.id.book_info_textview_author,item.getAuthor());
         helper.setText(R.id.book_info_textview_introduction,"简介:"+item.getIntroduction());
     }
 }

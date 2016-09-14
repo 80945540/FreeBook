@@ -1,26 +1,22 @@
-package com.lance.freebook.Date.HttpData;
+package com.lance.freebook.Data.HttpData;
 
-import android.content.Context;
-import android.content.Intent;
-
-import com.lance.freebook.Date.APi.CacheProviders;
-import com.lance.freebook.Date.APi.MovieService;
-import com.lance.freebook.Date.Retrofit.ApiException;
+import com.lance.freebook.Data.APi.CacheProviders;
+import com.lance.freebook.Data.APi.MovieService;
+import com.lance.freebook.Data.Retrofit.RetrofitUtils;
+import com.lance.freebook.MVP.Entity.BookTypeDto;
 import com.lance.freebook.Util.FileUtil;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
 import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
+import io.rx_cache.DynamicKey;
+import io.rx_cache.EvictDynamicKey;
+import io.rx_cache.Reply;
 import io.rx_cache.internal.RxCache;
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
-import rx.observables.AsyncOnSubscribe;
 import rx.schedulers.Schedulers;
 
 /*
@@ -45,20 +41,10 @@ public class HttpData extends RetrofitUtils {
         return SingletonHolder.INSTANCE;
     }
 
-    public void getHtml(Observer<String> observer) {
-        Observable observable = Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                try {
-                    Document doc = Jsoup.connect("http://m.txt99.cc/category/wuxia.html").get();
-                    subscriber.onNext(doc.html().toString());
-                } catch (Exception e) {
-                    subscriber.onNext("error");
-                }
-                subscriber.onCompleted();
-            }
-        }).map(new HttpResultString());
-        setSubscribe(observable, observer);
+    public void getBookTypes(Observer<List<BookTypeDto>> observer){
+        Observable observable=service.getBookTypes();
+        Observable observableCahce=providers.getBookTypes(observable,new DynamicKey("书本类别"),new EvictDynamicKey(false)).map(new HttpResultFuncCcche<List<BookTypeDto>>());
+        setSubscribe(observableCahce,observer);
     }
 
     /**
@@ -76,9 +62,7 @@ public class HttpData extends RetrofitUtils {
     }
 
     /**
-     * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
-     *
-     *  Subscriber真正需要的数据类型，也就是Data部分的数据类型
+     * 用来统一处理RxCacha的结果
      */
 //    private  class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
 //
@@ -90,22 +74,11 @@ public class HttpData extends RetrofitUtils {
 //            return httpResult.getResults();
 //        }
 //    }
-//    private  class HttpResultFunc1<T> implements Func1<Reply<T>, T> {
-//
-//        @Override
-//        public T call(Reply<T> httpResult) {
-//            Log.d("HttpResultFunc1", "httpResult:" + httpResult);
-//            return httpResult.getData();
-//        }
-//    }
-    private  class HttpResultString implements Func1<String, String> {
+    private  class HttpResultFuncCcche<T> implements Func1<Reply<T>, T> {
 
         @Override
-        public String call(String strType) {
-            if (strType.equals("error")) {
-                throw new ApiException(strType);
-            }
-            return strType;
+        public T call(Reply<T> httpResult) {
+            return httpResult.getData();
         }
     }
 

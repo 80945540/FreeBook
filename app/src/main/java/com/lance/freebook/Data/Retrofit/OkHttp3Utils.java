@@ -1,11 +1,10 @@
-package com.lance.freebook.Date.HttpData;
+package com.lance.freebook.Data.Retrofit;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.lance.freebook.Date.Retrofit.PersistentCookieStore;
 import com.lance.freebook.MyApplication.MyApplication;
 
 import java.io.File;

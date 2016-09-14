@@ -1,28 +1,15 @@
 package com.lance.freebook.MVP.Home;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.lance.freebook.Date.HttpData.HttpData;
 import com.lance.freebook.MVP.Base.BaseActivity;
 import com.lance.freebook.MVP.Home.Fragment.FragmentController;
 import com.lance.freebook.R;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import rx.Observer;
 
 public class HomeTabActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 

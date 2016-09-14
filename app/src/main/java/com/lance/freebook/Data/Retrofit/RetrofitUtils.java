@@ -1,4 +1,4 @@
-package com.lance.freebook.Date.HttpData;
+package com.lance.freebook.Data.Retrofit;
 
 import com.lance.freebook.common.Constant;
 

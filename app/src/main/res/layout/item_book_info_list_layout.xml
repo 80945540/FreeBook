@@ -19,7 +19,7 @@
             android:id="@+id/book_info_image_url"
             android:layout_width="60dp"
             android:layout_height="80dp"
-            android:src="@mipmap/test"
+            android:src="@mipmap/nocover"
             android:scaleType="centerCrop"/>
         <LinearLayout
             android:layout_width="match_parent"

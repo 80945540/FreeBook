@@ -71,14 +71,16 @@ public class DefaultHeader extends BaseHeader {
         if (freshTime==0){
             freshTime = System.currentTimeMillis();
         }else {
-            int m = (int) ((System.currentTimeMillis()-freshTime)/1000/60);
-            if(m>=1 && m<60){
-                headerTime.setText( m +"分钟前");
-            }else if (m>=60){
-                int h = m/60;
+            int m = (int) ((System.currentTimeMillis()-freshTime)/1000);
+            if(m>0&&m<60){
+                headerTime.setText( m +"秒前");
+            }else if(m>=60 && m<360){
+                headerTime.setText( m/60 +"分钟前");
+            }else if (m>=360){
+                int h = m/360;
                 headerTime.setText( h +"小时前");
-            }else if(m>60*24){
-                int d = m/(60*24);
+            }else if(m>360*24){
+                int d = m/(360*24);
                 headerTime.setText( d +"天前");
             }else if(m==0){
                 headerTime.setText("刚刚");
