@@ -57,4 +57,15 @@ public class BookInfoListDto {
     public void setCodeId(String codeId) {
         this.codeId = codeId;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"imageUrl\"=\"" + imageUrl + '\"' +
+                ", \"bookName\"=\"" + bookName + '\"' +
+                ", \"author\"=\"" + author + '\"' +
+                ", \"introduction\"=\"" + introduction + '\"' +
+                ", \"codeId\"=\"" + codeId + '\"' +
+                '}';
+    }
 }

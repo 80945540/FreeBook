@@ -32,10 +32,4 @@ public class HomeStackFragmentModel {
             }
         });
     }
-
-
-    public interface OnLoadDataListListener {
-        void onSuccess(List<BookTypeDto> list);
-        void onFailure(Throwable e);
-    }
 }

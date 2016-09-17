@@ -16,4 +16,5 @@
     <color name="text_color_qianhui">#999999</color><!-- 字体颜色  标题灰色 -->
     <color name="title_bag">#e84d34</color>
     <color name="text_color_golden">#fe6925</color>
+    <color name="title_top_alpha">#90333333</color><!--标题黑色半透明-->
 </resources>

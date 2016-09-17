@@ -33,10 +33,4 @@ public class StackInfoFragmentModel {
             }
         });
     }
-
-
-    public interface OnLoadDataListListener {
-        void onSuccess(List<BookInfoListDto> list);
-        void onFailure(Throwable e);
-    }
 }

@@ -22,7 +22,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
     <!--首页底部tabstyle-->
     <style name="ActivityTitle">

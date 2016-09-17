@@ -2,12 +2,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.lance.freebook.MVP.Home.Fragment.HomeRecommendFragment">
-
-    <TextView
+    <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+        android:id="@+id/home_recommend_progress"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="推荐" />
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <cn.bingoogolapple.bgabanner.BGABanner
+                    android:id="@+id/home_recommend_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    app:banner_pageChangeDuration="1000"
+                    app:banner_pointAutoPlayAble="true"
+                    app:banner_pointContainerBackground="@color/title_top_alpha"
+                    app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+                    app:banner_pointTopBottomMargin="5dp"
+                    app:banner_transitionEffect="alpha"
+                    app:banner_indicatorGravity="right"
+                    app:banner_tipTextSize="15dp"
+                    app:banner_tipTextColor="@color/white"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:padding="10dp">
+                    <TextView
+                        style="@style/TextStyle_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="热门推荐"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/window_gray"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"/>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_downlaod_recommend_hot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:padding="10dp">
+                    <TextView
+                        style="@style/TextStyle_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="最近更新"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/window_gray"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"/>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_downlaod_recommend_new"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
+    </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.lance.freebook.MVP.Home.Fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,16 +46,13 @@ public class StackInfoFragment extends BaseFragment implements BaseQuickAdapter.
     }
 
     @Override
-    protected void initData() {
-        mpPresenter = new StackInfoFragmentPresenter(this);
+    protected void initListener() {
         bookType = getArguments().getParcelable("BookType");
         stackInfoSpringview.setListener(this);
         stackInfoSpringview.setHeader(new DefaultHeader(getContext()));
         stackInfoList.setLayoutManager(new LinearLayoutManager(getContext()));
         //如果Item高度固定  增加该属性能够提高效率
         stackInfoList.setHasFixedSize(true);
-        //设置页面为加载中..
-        stackInfoProgress.showLoading();
         //设置适配器
         mQuickAdapter = new BookInfoListAdapter(R.layout.item_book_info_list_layout,null);
         //设置加载动画
@@ -73,6 +71,11 @@ public class StackInfoFragment extends BaseFragment implements BaseQuickAdapter.
             }
         });
         startPage=bookType.getStartPage();
+    }
+
+    @Override
+    protected void initData() {
+        mpPresenter = new StackInfoFragmentPresenter(this);
         mpPresenter.LaodData(bookType,startPage,false);
     }
     @Override
@@ -109,7 +112,6 @@ public class StackInfoFragment extends BaseFragment implements BaseQuickAdapter.
         mQuickAdapter.setNewData(newsList);//新增数据
         mQuickAdapter.openLoadMore(bookType.getPageLength(),true);//设置是否可以下拉加载  以及加载条数
         stackInfoSpringview.onFinishFreshAndLoad();//刷新完成
-        stackInfoProgress.showContent();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.lance.freebook.MVP.Home.presenter;
 
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
 import com.lance.freebook.MVP.Entity.BookTypeDto;
+import com.lance.freebook.MVP.Home.model.OnLoadDataListListener;
 import com.lance.freebook.MVP.Home.model.StackInfoFragmentModel;
 import com.lance.freebook.MVP.Home.view.StackInfoFragmentView;
 
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/14.
  */
-public class StackInfoFragmentPresenter implements StackInfoFragmentModel.OnLoadDataListListener {
+public class StackInfoFragmentPresenter implements OnLoadDataListListener<List<BookInfoListDto>> {
     private StackInfoFragmentView mView;
     private StackInfoFragmentModel mModel;
     private boolean isLoad=false;

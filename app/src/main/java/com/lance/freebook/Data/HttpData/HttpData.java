@@ -4,6 +4,7 @@ import com.lance.freebook.Data.APi.CacheProviders;
 import com.lance.freebook.Data.APi.MovieService;
 import com.lance.freebook.Data.Retrofit.RetrofitUtils;
 import com.lance.freebook.MVP.Entity.BookTypeDto;
+import com.lance.freebook.MVP.Entity.HomeDto;
 import com.lance.freebook.Util.FileUtil;
 
 import java.io.File;
@@ -41,12 +42,18 @@ public class HttpData extends RetrofitUtils {
         return SingletonHolder.INSTANCE;
     }
 
+    //获取app书本类别
     public void getBookTypes(Observer<List<BookTypeDto>> observer){
         Observable observable=service.getBookTypes();
         Observable observableCahce=providers.getBookTypes(observable,new DynamicKey("书本类别"),new EvictDynamicKey(false)).map(new HttpResultFuncCcche<List<BookTypeDto>>());
         setSubscribe(observableCahce,observer);
     }
-
+    //获取app首页配置信息  banner  最新 最热
+    public void getHomeInfo(Observer<HomeDto> observer){
+        Observable observable=service.getHomeInfo();
+        Observable observableCache=providers.getHomeInfo(observable,new DynamicKey("首页配置"),new EvictDynamicKey(false)).map(new HttpResultFuncCcche<HomeDto>());
+        setSubscribe(observableCache,observer);
+    }
     /**
      * 插入观察者
      *

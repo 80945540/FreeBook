@@ -1,6 +1,7 @@
 package com.lance.freebook.Data.APi;
 
 import com.lance.freebook.MVP.Entity.BookTypeDto;
+import com.lance.freebook.MVP.Entity.HomeDto;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface MovieService {
     @GET("freebook/typeconfig.json")
     Observable<List<BookTypeDto>> getBookTypes();
 
+    //获得首页banner以及书籍数据
+    @GET("freebook/home.json")
+    Observable<HomeDto> getHomeInfo();
 }

@@ -63,6 +63,11 @@ public class HomeStackFragment extends BaseFragment implements HomeStackFragment
     }
 
     @Override
+    protected void initListener() {
+
+    }
+
+    @Override
     protected void initData() {
         mPresenter = new HomeStackFragmentPresenter(this);
         stackTab.addView(LayoutInflater.from(getActivity()).inflate(R.layout.tab_top_layout, stackTab, false));

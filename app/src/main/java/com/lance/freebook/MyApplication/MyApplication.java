@@ -22,7 +22,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-
     }
     /**
      * 应用实例
