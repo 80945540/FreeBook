@@ -12,6 +12,7 @@ import com.lance.freebook.common.Constant;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 import io.rx_cache.DynamicKey;
@@ -50,14 +51,13 @@ public class HtmlData {
         setSubscribe(observableCache, observer);
     }
     public void getSearchList(String key,Observer<List<BookInfoListDto>> observer){
-        String SearchKey;
         try {
-            SearchKey = URLDecoder.decode(key, "GBK");
-            Log.d("HtmlData", SearchKey);
+            //中文记得转码  不然会乱码  搜索不出想要的效果
+            key = URLEncoder.encode(key, "utf-8");
         } catch (UnsupportedEncodingException e) {
-            SearchKey=key;
+            e.printStackTrace();
         }
-        Observable observable=Observable.create(new StackTypeHtmlOnSubscribe<BookInfoListDto>(Constant.API_SEARCH.replace("{Key}",SearchKey)));
+        Observable observable=Observable.create(new StackTypeHtmlOnSubscribe<BookInfoListDto>(Constant.API_SEARCH.replace("{Key}",key)));
         Observable observableCache=providers.getStackTypeList(observable,new DynamicKey("getSearchList&"+key), new EvictDynamicKey(true)).map(new HttpResultFuncCache<List<BookInfoListDto>>());
         setSubscribe(observableCache, observer);
     }

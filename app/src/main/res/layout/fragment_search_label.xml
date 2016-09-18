@@ -2,16 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="com.lance.freebook.MVP.Search.Fragment.SearchLabelFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.lance.freebook.Widget.TagCloudView
+        android:id="@+id/search_lable_tagcloud"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textColor="@color/text_color_context"
-        android:text="标签组" />
-
+        android:layout_height="wrap_content"
+        app:tcvItemBorderHorizontal="8dp"
+        app:tcvItemBorderVertical="6dp"
+        app:tcvBorder="8dp"
+        app:tcvTextColor="@color/white"
+        app:tcvTextSize="13"
+        app:tcvCanTagClick="true">
+    </com.lance.freebook.Widget.TagCloudView>
 </LinearLayout>

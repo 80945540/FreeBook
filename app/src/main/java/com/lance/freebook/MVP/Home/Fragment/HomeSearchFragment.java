@@ -17,7 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.lance.freebook.MVP.Base.BaseFragment;
+import com.lance.freebook.MVP.Home.model.OnLoadDataListListener;
 import com.lance.freebook.MVP.Search.Fragment.FragmentControllerSearch;
+import com.lance.freebook.MVP.Search.Fragment.SearchLabelFragment;
 import com.lance.freebook.MVP.Search.View.SearchListView;
 import com.lance.freebook.MVP.Search.presenter.SearchPresenter;
 import com.lance.freebook.R;
@@ -27,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class HomeSearchFragment extends BaseFragment {
+public class HomeSearchFragment extends BaseFragment implements SearchLabelFragment.Taglistterner {
 
     @BindView(R.id.search_edit_content)
     EditText searchEditContent;
@@ -127,5 +129,10 @@ public class HomeSearchFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         FragmentControllerSearch.onDestroy();
+    }
+
+    @Override
+    public void toTagClick(int position) {
+        Toast.makeText(getActivity(), "position:" + position, Toast.LENGTH_SHORT).show();
     }
 }
