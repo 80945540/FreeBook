@@ -69,6 +69,19 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
         mQuickAdapterNew.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         homeDownlaodRecommendHot.setAdapter(mQuickAdapterHot);
         homeDownlaodRecommendNew.setAdapter(mQuickAdapterNew);
+
+        mQuickAdapterHot.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(), "点击了"+mQuickAdapterHot.getItem(position).getBookName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        mQuickAdapterNew.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(), "点击了"+mQuickAdapterNew.getItem(position).getBookName(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

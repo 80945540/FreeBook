@@ -1,10 +1,12 @@
 package com.lance.freebook.MVP.Home;
 
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.lance.freebook.Dialog.MyDialogHint;
 import com.lance.freebook.MVP.Base.BaseActivity;
 import com.lance.freebook.MVP.Home.Fragment.FragmentController;
 import com.lance.freebook.R;
@@ -79,5 +81,13 @@ public class HomeTabActivity extends BaseActivity implements RadioGroup.OnChecke
                 break;
         }
     }
-
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (((keyCode == KeyEvent.KEYCODE_BACK) ||
+                (keyCode == KeyEvent.KEYCODE_HOME))
+                && event.getRepeatCount() == 0) {
+            new MyDialogHint(HomeTabActivity.this,R.style.MyDialog1).show();
+        }
+        return false;
+    }
 }

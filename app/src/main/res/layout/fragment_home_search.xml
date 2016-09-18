@@ -2,13 +2,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.lance.freebook.MVP.Home.Fragment.HomeSearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/white">
+        <LinearLayout
+            android:id="@+id/search_layout_edit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/edit_bj_gray"
+            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/search_edit_content"
+                style="@style/TextStyle_gray"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/white"
+                android:textColorHint="@color/text_color_qianhui"
+                android:inputType="text"
+                android:ems="10"
+                android:hint="请输入书名或作者"
+                android:singleLine="true" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/search_image_exit"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/search_delete"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/search_button_search"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:text="搜索"
+            android:textColor="@color/white"
+            android:textSize="15dp"/>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/search_framelayout_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="搜索" />
+        android:layout_marginTop="5dp">
 
+    </FrameLayout>
 </LinearLayout>

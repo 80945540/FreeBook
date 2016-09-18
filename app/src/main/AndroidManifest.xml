@@ -19,6 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".MVP.Home.HomeTabActivity"></activity>
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="80e8e37d3bd0483625c0d391ad60a9d0" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCf3QEHtInYgDpnE/8fm7DOjfO7hA9s11M47z0ZAC8f/DTBLSOmAnLodv+ALSQ73PCqLgpQvSLPK5o08WUxgu3pZ9zpp7G9wdwS9x6IWaglCMDN2SzCxKSlYUrLgeX7jMCVGsDVOkzg6gjW/1p6CAwvgkXyjHkNES4ytZeCIeie63rPaCGDRJ7P0MuBhtFCwdVUdpDGeYlpEcHuSINp9tnat/9BjiAXRDQUZy+2ETfVMFN7Yp8Ace+8QpKTpZTHL9nkCNGnAwSbd3290x9yUz9Dm2M67ja2yDyld0e/I8c9d7Ybm/W969dXStjiI6YFiNBZVi6IW8/rj0+CQNbzkzthAgMBAAECggEBAJ3lsS3GIVzpEkZbluLGaXUq+jEdOAseBwI2Mpet+d3SwtyG1C4VPx/i4WvdqmtCR6cfQGsM1QPhIjfmsjecBZdDUgyq6MDvaIqG8O5l99FUevMW7cIWbjU3CqRFUj4KgPEE8q/pHKQOJNsObnQX3MlUF/iAzNOeQ44slFAhY90KUjHMlFkAxFzDIi7Du3G1WRJ6zFt+E33teYIzNFsiDCyK1DqK4PJ4Nb0niAU93qtevzEH8k15BUEEJN+VpCxSpiLTfzb15myaiQi53Z/UmyH82iibQhZO7syx6xyxRNbPiNHWr0hJqURFkZ+4hUMPGBwbst+5tDpz0/Z4oemzoAECgYEA3G575wo06wxgGeHHLP820Oyo3OiC//Ca3VKzjLHECBD3tRbnu19OmoHoUjmedxDupj6y88oxDd120G7YS7yC+3lvolXJvOfxl5Egk0kga4Bw6oST55jTeQJKBNMx7YFPDqpxHHwNN2K64OtrvLHVQMX1fGPoOJv0CVe3PF+mBQECgYEAuaiVzIvPi6fKQEt7wJMgepyuGqruoqOalGOoZUR7iyoVNGngGbCujvjMScUtkEmSecABeBoeFbjO6CeZkakQGf96tnS2w+iX0eOl8Swi1YIPw5VUC7p786F3KX9jG1dhYS/gB954HQz+9xm2z+MgNQyCy2Jm0TBzPuFTy/79VmECgYAMrG2DQxr3yKZd1pVVCPdl27V5vgSKIpNE1lRsamwS6qbTSpXYOAqU55Mr5xQtVFPkSwaO7bkUSv9hzH2zHQuK2diJRNVsfwls5XMyBKpQg/n6AdVfI3JFKtSGon3kYeLhvPrz4E4COTL1a5OuLatNJhSPKk9Xsd++CcUHO5iYAQJ/GWHzGQQEXBOUkzW+tZVn21uQchTsi0/S0nbNjwrN2TjnrULMYLbHJsTdKTjMAe4NGJgnm0P22QFrSFIhrMhwax2CqW9LjX0/RHLbPR3LpWUiwpqn4vKb/7MTl5jS8+n+ZkslVe4UfeRI93+Mft+Oh7IuL6BEblUxbGdiDYHPIQKBgQDI0B7FV3FA2QJAhP+oBUhE/JvCXSEf/weLIE7N7RwkfEQNDW4EBb9L01xU/nzbrbCwZdlvG11Gtdfy+YQWCxVKk5VxIp/FqXKWMB/2HDO48y54bB6S4Fx48WPRbXtmvB+NhgH1RbvaKdzF6NnfN3Nwj1N8MpniMswpUjhtY77O1w==" />
     </application>
 
 </manifest>

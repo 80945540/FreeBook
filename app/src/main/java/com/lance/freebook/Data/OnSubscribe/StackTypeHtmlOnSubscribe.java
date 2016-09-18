@@ -1,5 +1,7 @@
 package com.lance.freebook.Data.OnSubscribe;
 
+import android.util.Log;
+
 import com.lance.freebook.Data.Retrofit.ApiException;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
 
@@ -29,6 +31,7 @@ public class StackTypeHtmlOnSubscribe<T> implements Observable.OnSubscribe<List<
         List<T> expertListDtos=new ArrayList<T>();
         try {
             Document doc = Jsoup.connect(url).get();
+            Log.d("StackTypeHtmlOnSubscrib", doc.body().toString());
             Element content = doc.select("ul").first();
             Elements links = content.select("li");
             for (Element link : links) {
@@ -41,7 +44,9 @@ public class StackTypeHtmlOnSubscribe<T> implements Observable.OnSubscribe<List<
                 String relHref2 = temp1.attr("alt");
                 String relHref3 = temp3.text();
                 String relHref4 = temp4.text();
+                Log.d("StackTypeHtmlOnSubscrib", relHref);
                 if(!relHref.equals("")) {
+                    Log.d("StackTypeHtmlOnSubscrib", relHref1);
                     expertListDtos.add((T) new BookInfoListDto(relHref1, relHref2, relHref3, relHref4, relHref));
                 }
             }
