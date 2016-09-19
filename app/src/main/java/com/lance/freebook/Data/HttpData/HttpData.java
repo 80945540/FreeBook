@@ -54,6 +54,12 @@ public class HttpData extends RetrofitUtils {
         Observable observableCache=providers.getHomeInfo(observable,new DynamicKey("首页配置"),new EvictDynamicKey(false)).map(new HttpResultFuncCcche<HomeDto>());
         setSubscribe(observableCache,observer);
     }
+    //获得搜索热门标签
+    public void getSearchLable(Observer<List<String>> observer){
+        Observable observable=service.getSearchLable();
+        Observable observableCache=providers.getSearchLable(observable,new DynamicKey("搜索热门标签"), new EvictDynamicKey(false)).map(new HttpResultFuncCcche<List<String>>());
+        setSubscribe(observableCache,observer);
+    }
     /**
      * 插入观察者
      *

@@ -1,5 +1,6 @@
 package com.lance.freebook.MVP.Home.Fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.lance.freebook.MVP.Adapter.BookInfoListAdapter;
 import com.lance.freebook.MVP.Base.BaseFragment;
+import com.lance.freebook.MVP.BookInfo.BookInfoActivity;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
 import com.lance.freebook.MVP.Entity.BookTypeDto;
 import com.lance.freebook.MVP.Home.presenter.StackInfoFragmentPresenter;
@@ -67,7 +69,9 @@ public class StackInfoFragment extends BaseFragment implements BaseQuickAdapter.
         mQuickAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getContext(), "点击了"+mQuickAdapter.getItem(position).getBookName(), Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getActivity(), BookInfoActivity.class);
+                intent.putExtra("bookinfo", mQuickAdapter.getItem(position));
+                startActivity(intent);
             }
         });
         startPage=bookType.getStartPage();

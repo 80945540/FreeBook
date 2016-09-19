@@ -1,6 +1,8 @@
 package com.lance.freebook.MVP.Home.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import com.lance.freebook.MVP.Adapter.BGABannerAdapter;
 import com.lance.freebook.MVP.Adapter.BookInfoGridAdapter;
 import com.lance.freebook.MVP.Adapter.BookInfoListAdapter;
 import com.lance.freebook.MVP.Base.BaseFragment;
+import com.lance.freebook.MVP.BookInfo.BookInfoActivity;
 import com.lance.freebook.MVP.Entity.HomeDto;
 import com.lance.freebook.MVP.Home.presenter.HomeRecommendFragmentPresenter;
 import com.lance.freebook.MVP.Home.view.HomeRecommendFragmentView;
@@ -73,13 +76,17 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
         mQuickAdapterHot.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getContext(), "点击了"+mQuickAdapterHot.getItem(position).getBookName(), Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getActivity(), BookInfoActivity.class);
+                intent.putExtra("bookinfo", mQuickAdapterHot.getItem(position));
+                startActivity(intent);
             }
         });
         mQuickAdapterNew.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getContext(), "点击了"+mQuickAdapterNew.getItem(position).getBookName(), Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getActivity(), BookInfoActivity.class);
+                intent.putExtra("bookinfo", mQuickAdapterNew.getItem(position));
+                startActivity(intent);
             }
         });
     }

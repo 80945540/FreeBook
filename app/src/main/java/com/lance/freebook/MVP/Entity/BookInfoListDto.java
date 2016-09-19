@@ -1,9 +1,12 @@
 package com.lance.freebook.MVP.Entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Administrator on 2016/9/12.
  */
-public class BookInfoListDto {
+public class BookInfoListDto implements Parcelable {
     private String imageUrl;
     private String bookName;
     private String author;
@@ -68,4 +71,38 @@ public class BookInfoListDto {
                 ", \"codeId\"=\"" + codeId + '\"' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.bookName);
+        dest.writeString(this.author);
+        dest.writeString(this.introduction);
+        dest.writeString(this.codeId);
+    }
+
+    protected BookInfoListDto(Parcel in) {
+        this.imageUrl = in.readString();
+        this.bookName = in.readString();
+        this.author = in.readString();
+        this.introduction = in.readString();
+        this.codeId = in.readString();
+    }
+
+    public static final Parcelable.Creator<BookInfoListDto> CREATOR = new Parcelable.Creator<BookInfoListDto>() {
+        @Override
+        public BookInfoListDto createFromParcel(Parcel source) {
+            return new BookInfoListDto(source);
+        }
+
+        @Override
+        public BookInfoListDto[] newArray(int size) {
+            return new BookInfoListDto[size];
+        }
+    };
 }

@@ -9,13 +9,15 @@ import android.os.Parcelable;
 public class BookTypeDto implements Parcelable {
     private String BookTypeUrl;
     private String BookTypeName;
+    private String BookTypeImageUrl;
     private int StartPage;
     private int EndPage;
     private int pageLength;
 
-    public BookTypeDto(String bookTypeUrl, String bookTypeName, int startPage, int endPage, int pageLength) {
+    public BookTypeDto(String bookTypeUrl, String bookTypeName, String bookTypeImageUrl, int startPage, int endPage, int pageLength) {
         BookTypeUrl = bookTypeUrl;
         BookTypeName = bookTypeName;
+        BookTypeImageUrl = bookTypeImageUrl;
         StartPage = startPage;
         EndPage = endPage;
         this.pageLength = pageLength;
@@ -35,6 +37,14 @@ public class BookTypeDto implements Parcelable {
 
     public void setBookTypeName(String bookTypeName) {
         BookTypeName = bookTypeName;
+    }
+
+    public String getBookTypeImageUrl() {
+        return BookTypeImageUrl;
+    }
+
+    public void setBookTypeImageUrl(String bookTypeImageUrl) {
+        BookTypeImageUrl = bookTypeImageUrl;
     }
 
     public int getStartPage() {
@@ -61,10 +71,6 @@ public class BookTypeDto implements Parcelable {
         this.pageLength = pageLength;
     }
 
-    public static Creator<BookTypeDto> getCREATOR() {
-        return CREATOR;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -74,6 +80,7 @@ public class BookTypeDto implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.BookTypeUrl);
         dest.writeString(this.BookTypeName);
+        dest.writeString(this.BookTypeImageUrl);
         dest.writeInt(this.StartPage);
         dest.writeInt(this.EndPage);
         dest.writeInt(this.pageLength);
@@ -82,6 +89,7 @@ public class BookTypeDto implements Parcelable {
     protected BookTypeDto(Parcel in) {
         this.BookTypeUrl = in.readString();
         this.BookTypeName = in.readString();
+        this.BookTypeImageUrl = in.readString();
         this.StartPage = in.readInt();
         this.EndPage = in.readInt();
         this.pageLength = in.readInt();
@@ -98,15 +106,4 @@ public class BookTypeDto implements Parcelable {
             return new BookTypeDto[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "BookTypeDto{" +
-                "BookTypeUrl='" + BookTypeUrl + '\'' +
-                ", BookTypeName='" + BookTypeName + '\'' +
-                ", StartPage=" + StartPage +
-                ", EndPage=" + EndPage +
-                ", pageLength=" + pageLength +
-                '}';
-    }
 }

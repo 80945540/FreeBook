@@ -44,6 +44,10 @@ public class HomeSearchFragment extends BaseFragment implements SearchLabelFragm
     private FragmentControllerSearch controller;
     private SearchPresenter presenter;
 
+    public SearchLabelFragment.Taglistterner getTaglistterner(){
+        return this;
+    }
+
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
         return inflater.inflate(R.layout.fragment_home_search, container, false);
@@ -132,7 +136,12 @@ public class HomeSearchFragment extends BaseFragment implements SearchLabelFragm
     }
 
     @Override
-    public void toTagClick(int position) {
-        Toast.makeText(getActivity(), "position:" + position, Toast.LENGTH_SHORT).show();
+    public void toTagClick(String key) {
+        Log.d("HomeSearchFragment", key);
+        searchEditContent.setFocusable(false);
+        searchEditContent.clearFocus();//失去焦点
+        controller.showFragment(1);
+        searchEditContent.setText(key);
+        presenter.showSearchList(searchEditContent.getText().toString());
     }
 }

@@ -1,5 +1,6 @@
 package com.lance.freebook.Data.APi;
 
+import com.lance.freebook.MVP.Entity.BookInfoDto;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
 import com.lance.freebook.MVP.Entity.BookTypeDto;
 import com.lance.freebook.MVP.Entity.HomeDto;
@@ -33,4 +34,12 @@ public interface CacheProviders {
     //获取首页配置数据 banner 最热 最新  缓存时间7天
     @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
     Observable<Reply<HomeDto>> getHomeInfo(Observable<HomeDto> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+
+    //获取搜索标签  缓存时间7天
+    @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
+    Observable<Reply<List<String>>> getSearchLable(Observable<List<String>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+
+    //获取书籍详情  缓存时间7天
+    @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
+    Observable<Reply<BookInfoDto>> getBookInfo(Observable<BookInfoDto> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 }

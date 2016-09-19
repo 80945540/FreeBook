@@ -3,7 +3,9 @@ package com.lance.freebook.Data.HtmlData;
 import android.util.Log;
 
 import com.lance.freebook.Data.APi.CacheProviders;
+import com.lance.freebook.Data.OnSubscribe.BookInfoHtmlOnSubscribe;
 import com.lance.freebook.Data.OnSubscribe.StackTypeHtmlOnSubscribe;
+import com.lance.freebook.MVP.Entity.BookInfoDto;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
 import com.lance.freebook.MVP.Entity.BookTypeDto;
 import com.lance.freebook.Util.FileUtil;
@@ -44,12 +46,13 @@ public class HtmlData {
         return SingletonHolder.INSTANCE;
     }
 
-
+    //根据类型获取书籍集合
     public void getStackTypeHtml(BookTypeDto bookType, int pageIndex, Observer<List<BookInfoListDto>> observer) {
         Observable observable = Observable.create(new StackTypeHtmlOnSubscribe<BookInfoListDto>(bookType.getBookTypeUrl().replace("{Page}",pageIndex+"")));
         Observable observableCache=providers.getStackTypeList(observable,new DynamicKey("getStackTypeHtml"+bookType.getBookTypeName()+pageIndex), new EvictDynamicKey(false)).map(new HttpResultFuncCache<List<BookInfoListDto>>());
         setSubscribe(observableCache, observer);
     }
+    //根据关键字搜索书籍
     public void getSearchList(String key,Observer<List<BookInfoListDto>> observer){
         try {
             //中文记得转码  不然会乱码  搜索不出想要的效果
@@ -58,9 +61,16 @@ public class HtmlData {
             e.printStackTrace();
         }
         Observable observable=Observable.create(new StackTypeHtmlOnSubscribe<BookInfoListDto>(Constant.API_SEARCH.replace("{Key}",key)));
-        Observable observableCache=providers.getStackTypeList(observable,new DynamicKey("getSearchList&"+key), new EvictDynamicKey(true)).map(new HttpResultFuncCache<List<BookInfoListDto>>());
+        Observable observableCache=providers.getStackTypeList(observable,new DynamicKey("getSearchList&"+key), new EvictDynamicKey(false)).map(new HttpResultFuncCache<List<BookInfoListDto>>());
         setSubscribe(observableCache, observer);
     }
+    //获得书籍的详情
+    public void getBookInfo(BookInfoListDto bookinfo, Observer<BookInfoDto> observer){
+        Observable observable=Observable.create(new BookInfoHtmlOnSubscribe<BookInfoDto>(bookinfo.getCodeId()));
+        Observable observableCache=providers.getBookInfo(observable,new DynamicKey(bookinfo.getBookName()),new EvictDynamicKey(true)).map(new HttpResultFuncCache<BookInfoDto>());
+        setSubscribe(observableCache, observer);
+    }
+
     /**
      * 插入观察者
      *

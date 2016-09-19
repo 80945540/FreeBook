@@ -20,4 +20,8 @@ public interface MovieService {
     //获得首页banner以及书籍数据
     @GET("freebook/home.json")
     Observable<HomeDto> getHomeInfo();
+
+    //获得搜索标签
+    @GET("freebook/search_lable.json")
+    Observable<List<String>> getSearchLable();
 }

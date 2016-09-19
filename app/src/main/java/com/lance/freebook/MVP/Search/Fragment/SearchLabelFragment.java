@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.lance.freebook.MVP.Base.BaseFragment;
+import com.lance.freebook.MVP.Search.View.SearchLabelView;
+import com.lance.freebook.MVP.Search.presenter.SearchLablePresenter;
 import com.lance.freebook.R;
 import com.lance.freebook.Widget.TagCloudView;
+import com.lance.freebook.common.Constant;
+import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +20,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class SearchLabelFragment extends BaseFragment {
+public class SearchLabelFragment extends BaseFragment implements SearchLabelView{
 
 
     @BindView(R.id.search_lable_tagcloud)
     TagCloudView searchLableTagcloud;
 
+    @BindView(R.id.search_lable_progress)
+    ProgressActivity searchLableProgress;
+    private Taglistterner taglistterner;
+    List<String> stringList = new ArrayList<String>();
+    private SearchLablePresenter presenter;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
@@ -31,39 +39,69 @@ public class SearchLabelFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+        try {
+            taglistterner = (Taglistterner) getFragmentManager().getFragments().get(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         searchLableTagcloud.setOnTagClickListener(new TagCloudView.OnTagClickListener() {
             @Override
             public void onTagClick(int position) {
-                Toast.makeText(getActivity(), "position:" + position, Toast.LENGTH_SHORT).show();
+                try {
+                    taglistterner.toTagClick(stringList.get(position));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     @Override
     protected void initData() {
-        List<String> stringList=new ArrayList<String>();
-        stringList.add("唐家三少");
-        stringList.add("天蚕土豆");
-        stringList.add("鱼人二代");
-        stringList.add("斗罗大陆");
-        stringList.add("太古神王");
-        stringList.add("军婚");
-        stringList.add("校花的贴身高手");
-        stringList.add("翻译官");
-        stringList.add("大主宰");
-        stringList.add("余罪");
-        stringList.add("废材");
-        stringList.add("完美世界");
-        stringList.add("异能");
-        stringList.add("总裁");
-        stringList.add("豪门");
-        stringList.add("种田");
-        stringList.add("系统");
-        stringList.add("南派三叔");
-        searchLableTagcloud.setTags(stringList);
+        presenter = new SearchLablePresenter(this);
+        presenter.loadLableData();
 
     }
-    public interface Taglistterner{
-        void toTagClick(int position);
+    @Override
+    public void showProgress() {
+        searchLableProgress.showLoading();
+    }
+
+    @Override
+    public void hideProgress() {
+        searchLableProgress.showContent();
+    }
+
+    @Override
+    public void newData(List<String> data) {
+        stringList=data;
+        searchLableTagcloud.setTags(stringList);
+    }
+
+    @Override
+    public void showLoadFailMsg() {
+        toError();
+    }
+
+    @Override
+    public void showNoData() {
+        toEmpty();
+    }
+
+    public interface Taglistterner {
+        void toTagClick(String key);
+    }
+    public void toError(){
+        searchLableProgress.showError(getResources().getDrawable(R.mipmap.load_error), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchLableProgress.showLoading();
+                //重试
+                presenter.loadLableData();
+            }
+        });
+    }
+    public void toEmpty(){
+        searchLableProgress.showEmpty(getResources().getDrawable(R.mipmap.load_no_data),Constant.EMPTY_TITLE_SEARCH, Constant.EMPTY_CONTEXT_SEARCH);
     }
 }

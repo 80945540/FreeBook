@@ -27,10 +27,10 @@ public class BookInfoGridAdapter extends BaseQuickAdapter<BookInfoListDto> {
                 .crossFade()
                 .placeholder(R.mipmap.nocover)
                 .into((ImageView) helper.getView(R.id.home_recommend_item_imageview_url));
-        if(item.getBookName().length()<=5){
+        if(item.getBookName().length()<=4){
             ((TextView) helper.getView(R.id.home_recommend_item_textview_title)).setTextSize(15);
-        }else if(item.getBookName().length()>5&&item.getBookName().length()<=10){
-            ((TextView) helper.getView(R.id.home_recommend_item_textview_title)).setTextSize(13);
+        }else if(item.getBookName().length()>4&&item.getBookName().length()<=9){
+            ((TextView) helper.getView(R.id.home_recommend_item_textview_title)).setTextSize(12);
         }else{
             ((TextView) helper.getView(R.id.home_recommend_item_textview_title)).setTextSize(10);
         }

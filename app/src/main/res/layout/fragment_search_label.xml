@@ -6,15 +6,21 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="com.lance.freebook.MVP.Search.Fragment.SearchLabelFragment">
-    <com.lance.freebook.Widget.TagCloudView
-        android:id="@+id/search_lable_tagcloud"
+    <com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity
+        xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/search_lable_progress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tcvItemBorderHorizontal="8dp"
-        app:tcvItemBorderVertical="6dp"
-        app:tcvBorder="8dp"
-        app:tcvTextColor="@color/white"
-        app:tcvTextSize="13"
-        app:tcvCanTagClick="true">
-    </com.lance.freebook.Widget.TagCloudView>
+        android:layout_height="match_parent">
+        <com.lance.freebook.Widget.TagCloudView
+            android:id="@+id/search_lable_tagcloud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tcvItemBorderHorizontal="8dp"
+            app:tcvItemBorderVertical="6dp"
+            app:tcvBorder="8dp"
+            app:tcvTextColor="@color/white"
+            app:tcvTextSize="13"
+            app:tcvCanTagClick="true">
+        </com.lance.freebook.Widget.TagCloudView>
+    </com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity>
 </LinearLayout>
