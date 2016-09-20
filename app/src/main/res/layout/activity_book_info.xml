@@ -115,13 +115,13 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/tabhost1_1"/>
+                        android:src="@mipmap/tabhost1"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:textSize="20dp"
-                        android:textColor="@color/text_color_golden"
+                        android:textColor="@color/text_color_qianhui"
                         android:text="在线阅读"
                         />
                 </LinearLayout>
@@ -133,7 +133,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/book_class_background"
+                    android:background="@drawable/book_class_background_available"
                     android:gravity="center"
                     android:padding="8dp">
                     <ImageView
@@ -141,6 +141,7 @@
                         android:layout_height="20dp"
                         android:src="@mipmap/tabhost3_3"/>
                     <TextView
+                        android:id="@+id/book_info_textview_download"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

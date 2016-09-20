@@ -2,9 +2,17 @@ package com.lance.freebook.MyApplication;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
+import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.util.FileDownloadHelper;
+
+import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 /*
  *自定义Application
@@ -20,6 +28,21 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        //文件下载管理初始化
+        FileDownloader.init(getApplicationContext(),
+                new FileDownloadHelper.OkHttpClientCustomMaker() { // is not has to provide.
+                    @Override
+                    public OkHttpClient customMake() {
+                        // just for OkHttpClient customize.
+                        final OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                        // you can set the connection timeout.
+                        builder.connectTimeout(15_000, TimeUnit.MILLISECONDS);
+                        // you can set the HTTP proxy.
+                        builder.proxy(Proxy.NO_PROXY);
+                        // etc.
+                        return builder.build();
+                    }
+                });
     }
     /**
      * 应用实例

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.lance.freebook.Dialog.MyDialogHint;
 import com.lance.freebook.MVP.Base.BaseActivity;
 import com.lance.freebook.MVP.Home.Fragment.FragmentController;
+import com.lance.freebook.MVP.Home.model.TasksManager;
 import com.lance.freebook.R;
 
 import butterknife.BindView;

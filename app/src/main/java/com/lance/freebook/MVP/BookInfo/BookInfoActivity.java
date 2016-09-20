@@ -2,9 +2,9 @@ package com.lance.freebook.MVP.BookInfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,24 +12,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.lance.freebook.Data.HtmlData.HtmlData;
 import com.lance.freebook.MVP.Base.BaseActivity;
 import com.lance.freebook.MVP.BookInfo.presenter.BookInfoPresenter;
 import com.lance.freebook.MVP.BookInfo.view.BookInfoView;
 import com.lance.freebook.MVP.Entity.BookInfoDto;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
-import com.lance.freebook.MVP.Entity.BookTypeDto;
+import com.lance.freebook.MVP.Entity.TasksManagerModel;
+import com.lance.freebook.MVP.Home.model.TasksManager;
 import com.lance.freebook.R;
 import com.lance.freebook.common.Constant;
+import com.lance.freebook.common.Lists;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
-import java.util.List;
-
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observer;
 
-public class BookInfoActivity extends BaseActivity implements BookInfoView{
+public class BookInfoActivity extends BaseActivity implements BookInfoView {
 
     @BindView(R.id.book_info_toolbar_textview_title)
     TextView bookInfoToolbarTextviewTitle;
@@ -57,6 +56,8 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView{
     TextView bookInfoTextviewIntroduction;
     @BindView(R.id.book_info_progress)
     ProgressActivity bookInfoProgress;
+    @BindView(R.id.book_info_textview_download)
+    TextView bookInfoTextviewDownload;
     private BookInfoListDto bookinfo;
     private BookInfoDto bookInfoDto;
     private BookInfoPresenter presenter;
@@ -80,8 +81,9 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView{
             }
         });
     }
-    public void initview(BookInfoDto data){
-        bookInfoDto=data;
+
+    public void initview(BookInfoDto data) {
+        bookInfoDto = data;
         Glide.with(mContext)
                 .load(data.getBookImageUrl())
                 .crossFade()
@@ -94,7 +96,13 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView{
         bookInfoTextviewProgress.setText(data.getBookProgress());
         bookInfoTextviewUpdatetime.setText(data.getBookUpdateTime());
         bookInfoTextviewIntroduction.setText(Html.fromHtml(data.getBookIntroduction()));
+        for(TasksManagerModel model: Lists.dowonloadList){
+            if(model.getName().equals(data.getBookName())){
+                bookInfoTextviewDownload.setText("已添加");
+            }
+        }
     }
+
     @Override
     protected void setListener() {
 
@@ -118,7 +126,10 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView{
                 Toast.makeText(mContext, "暂不支持", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.book_info_layout_download:
-                Toast.makeText(mContext, bookInfoDto.getBookDownload(), Toast.LENGTH_SHORT).show();
+                if(bookInfoTextviewDownload.getText().toString().equals("TXT下载")){
+                    TasksManager.getImpl().addTask(bookInfoDto);
+                    bookInfoTextviewDownload.setText("已添加");
+                }
                 break;
         }
     }
@@ -142,7 +153,8 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView{
     public void showLoadFailMsg() {
         toError();
     }
-    public void toError(){
+
+    public void toError() {
         bookInfoProgress.showError(getResources().getDrawable(R.mipmap.load_error), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
