@@ -23,5 +23,6 @@ public class Constant {
     public static final String ERROR_BUTTON="重试";
 
 
-    public static final String ACTON_DOWNLOAD="DOWNLOAD_NEW";
+    public static final String ACTON_DOWNLOAD_ADD="DOWNLOAD_ADD";
+    public static final String ACTON_DOWNLOAD_NEW="DOWNLOAD_NEW";
 }

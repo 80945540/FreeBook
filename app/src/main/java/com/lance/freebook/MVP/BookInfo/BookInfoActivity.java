@@ -153,8 +153,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
     public void showLoadFailMsg() {
         toError();
     }
-
-    public void toError() {
+    public void toError(){
         bookInfoProgress.showError(getResources().getDrawable(R.mipmap.load_error), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

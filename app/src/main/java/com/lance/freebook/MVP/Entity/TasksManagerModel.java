@@ -1,8 +1,10 @@
 package com.lance.freebook.MVP.Entity;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class TasksManagerModel {
+public class TasksManagerModel implements Parcelable {
     public final static String ID = "id";
     public final static String NAME = "name";
     public final static String IMAGEURL = "imageurl";
@@ -111,4 +113,47 @@ public class TasksManagerModel {
                 ", path='" + path + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.imageurl);
+        dest.writeString(this.author);
+        dest.writeString(this.type);
+        dest.writeString(this.progress);
+        dest.writeString(this.url);
+        dest.writeString(this.path);
+    }
+
+    public TasksManagerModel() {
+    }
+
+    protected TasksManagerModel(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.imageurl = in.readString();
+        this.author = in.readString();
+        this.type = in.readString();
+        this.progress = in.readString();
+        this.url = in.readString();
+        this.path = in.readString();
+    }
+
+    public static final Parcelable.Creator<TasksManagerModel> CREATOR = new Parcelable.Creator<TasksManagerModel>() {
+        @Override
+        public TasksManagerModel createFromParcel(Parcel source) {
+            return new TasksManagerModel(source);
+        }
+
+        @Override
+        public TasksManagerModel[] newArray(int size) {
+            return new TasksManagerModel[size];
+        }
+    };
 }

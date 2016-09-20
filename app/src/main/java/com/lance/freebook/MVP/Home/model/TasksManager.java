@@ -3,11 +3,9 @@ package com.lance.freebook.MVP.Home.model;
 import android.content.Intent;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.lance.freebook.Data.db.TasksManagerDBController;
-import com.lance.freebook.MVP.Adapter.TaskItemViewHolder;
 import com.lance.freebook.MVP.Entity.BookInfoDto;
 import com.lance.freebook.MVP.Entity.TasksManagerModel;
 import com.lance.freebook.MVP.Home.Fragment.HomeDownloadFragment;
@@ -17,18 +15,21 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadConnectListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.model.FileDownloadStatus;
+import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class TasksManager {
 
-    private final static class HolderClass {
-        private final static TasksManager INSTANCE
-                = new TasksManager();
+    private static TasksManager instance;
+
+    public static void init(){
+        instance=new TasksManager();
     }
+
     public static TasksManager getImpl() {
-        return HolderClass.INSTANCE;
+        return instance;
     }
 
     private TasksManagerDBController dbController;
@@ -50,7 +51,7 @@ public class TasksManager {
         taskSparseArray.remove(id);
     }
 
-    public void updateViewHolder(final int id, final TaskItemViewHolder holder) {
+    public void updateViewHolder(final int id, final BaseViewHolder holder) {
         final BaseDownloadTask task = taskSparseArray.get(id);
         if (task == null) {
             return;
@@ -63,55 +64,18 @@ public class TasksManager {
         taskSparseArray.clear();
     }
 
-    private FileDownloadConnectListener listener;
 
-    private void registerServiceConnectionListener(final WeakReference<HomeDownloadFragment>
-                                                           activityWeakReference) {
-        if (listener != null) {
-            FileDownloader.getImpl().removeServiceConnectListener(listener);
-        }
-
-        listener = new FileDownloadConnectListener() {
-
-            @Override
-            public void connected() {
-                if (activityWeakReference == null
-                        || activityWeakReference.get() == null) {
-                    return;
-                }
-
-                activityWeakReference.get().postNotifyDataChanged();
-            }
-
-            @Override
-            public void disconnected() {
-                if (activityWeakReference == null
-                        || activityWeakReference.get() == null) {
-                    return;
-                }
-
-                activityWeakReference.get().postNotifyDataChanged();
-            }
-        };
-
-        FileDownloader.getImpl().addServiceConnectListener(listener);
-    }
-
-    private void unregisterServiceConnectionListener() {
-        FileDownloader.getImpl().removeServiceConnectListener(listener);
-        listener = null;
-    }
-
-    public void onCreate(final WeakReference<HomeDownloadFragment> activityWeakReference) {
+    public void onCreate() {
         if (!FileDownloader.getImpl().isServiceConnected()) {
             FileDownloader.getImpl().bindService();
-            registerServiceConnectionListener(activityWeakReference);
-
+            if(modelList.size()>0){
+                Intent intent=new Intent(Constant.ACTON_DOWNLOAD_NEW);
+                MyApplication.getInstance().sendBroadcast(intent);
+            }
         }
     }
 
     public void onDestroy() {
-        unregisterServiceConnectionListener();
         releaseTask();
     }
 
@@ -172,9 +136,10 @@ public class TasksManager {
         final TasksManagerModel newModel = dbController.addTask(bookInfoDto);
         if (newModel != null) {
             modelList.add(newModel);
+            Intent intent=new Intent(Constant.ACTON_DOWNLOAD_ADD);
+            intent.putExtra("newModel",newModel);
+            MyApplication.getInstance().sendBroadcast(intent);
         }
-        Intent intent=new Intent(Constant.ACTON_DOWNLOAD);
-        MyApplication.getInstance().sendBroadcast(intent);
         return newModel;
     }
     public String patch(String flie){

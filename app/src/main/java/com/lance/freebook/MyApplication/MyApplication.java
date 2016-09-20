@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.lance.freebook.MVP.Home.model.TasksManager;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.util.FileDownloadHelper;
 
@@ -43,6 +44,8 @@ public class MyApplication extends Application {
                         return builder.build();
                     }
                 });
+        //初始化下载管理
+        TasksManager.init();
     }
     /**
      * 应用实例
