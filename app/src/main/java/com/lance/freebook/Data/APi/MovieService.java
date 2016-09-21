@@ -14,14 +14,14 @@ import rx.Observable;
 public interface MovieService {
 
     //获取书库分类信息
-    @GET("typeconfigs.json")
+    @GET("freebook/typeconfigs.json")
     Observable<List<BookTypeDto>> getBookTypes();
 
     //获得首页banner以及书籍数据
-    @GET("home.json")
+    @GET("freebook/home.json")
     Observable<HomeDto> getHomeInfo();
 
     //获得搜索标签
-    @GET("search_lable.json")
+    @GET("freebook/search_lable.json")
     Observable<List<String>> getSearchLable();
 }

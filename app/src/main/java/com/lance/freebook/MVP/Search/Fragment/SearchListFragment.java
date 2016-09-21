@@ -57,7 +57,8 @@ public class SearchListFragment extends BaseFragment implements SearchListView {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent=new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookinfo", mQuickAdapter.getItem(position));
+                intent.putExtra("bookurl", mQuickAdapter.getItem(position).getCodeId());
+                intent.putExtra("bookname", mQuickAdapter.getItem(position).getBookName());
                 startActivity(intent);
             }
         });

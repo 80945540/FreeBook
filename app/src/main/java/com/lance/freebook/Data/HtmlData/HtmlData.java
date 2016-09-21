@@ -65,9 +65,9 @@ public class HtmlData {
         setSubscribe(observableCache, observer);
     }
     //获得书籍的详情
-    public void getBookInfo(BookInfoListDto bookinfo, Observer<BookInfoDto> observer){
-        Observable observable=Observable.create(new BookInfoHtmlOnSubscribe<BookInfoDto>(bookinfo.getCodeId()));
-        Observable observableCache=providers.getBookInfo(observable,new DynamicKey(bookinfo.getBookName()),new EvictDynamicKey(true)).map(new HttpResultFuncCache<BookInfoDto>());
+    public void getBookInfo(String bookUrl,String bookName, Observer<BookInfoDto> observer){
+        Observable observable=Observable.create(new BookInfoHtmlOnSubscribe<BookInfoDto>(bookUrl));
+        Observable observableCache=providers.getBookInfo(observable,new DynamicKey(bookName),new EvictDynamicKey(true)).map(new HttpResultFuncCache<BookInfoDto>());
         setSubscribe(observableCache, observer);
     }
 

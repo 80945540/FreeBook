@@ -16,6 +16,7 @@ import com.lance.freebook.MVP.Adapter.BookInfoGridAdapter;
 import com.lance.freebook.MVP.Adapter.BookInfoListAdapter;
 import com.lance.freebook.MVP.Base.BaseFragment;
 import com.lance.freebook.MVP.BookInfo.BookInfoActivity;
+import com.lance.freebook.MVP.Entity.BannerDto;
 import com.lance.freebook.MVP.Entity.HomeDto;
 import com.lance.freebook.MVP.Home.presenter.HomeRecommendFragmentPresenter;
 import com.lance.freebook.MVP.Home.view.HomeRecommendFragmentView;
@@ -45,7 +46,7 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
     private HomeRecommendFragmentPresenter presenter;
     private BookInfoGridAdapter mQuickAdapterHot;
     private BookInfoGridAdapter mQuickAdapterNew;
-
+    private List<BannerDto> bannerList=new ArrayList<BannerDto>();
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
         return inflater.inflate(R.layout.fragment_home_recommend, container, false);
@@ -57,7 +58,10 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
         homeRecommendBanner.setOnItemClickListener(new BGABanner.OnItemClickListener() {
             @Override
             public void onBannerItemClick(BGABanner banner, View view, Object model, int position) {
-                Toast.makeText(getActivity(), "点击了", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getActivity(), BookInfoActivity.class);
+                intent.putExtra("bookurl", bannerList.get(position).getUrl());
+                intent.putExtra("bookname", bannerList.get(position).getBannerTitle());
+                startActivity(intent);
             }
         });
         homeDownlaodRecommendHot.setLayoutManager(new GridLayoutManager(getActivity(),4));
@@ -77,7 +81,8 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent=new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookinfo", mQuickAdapterHot.getItem(position));
+                intent.putExtra("bookurl", mQuickAdapterHot.getItem(position).getCodeId());
+                intent.putExtra("bookname", mQuickAdapterHot.getItem(position).getBookName());
                 startActivity(intent);
             }
         });
@@ -85,7 +90,8 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent=new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookinfo", mQuickAdapterNew.getItem(position));
+                intent.putExtra("bookurl", mQuickAdapterNew.getItem(position).getCodeId());
+                intent.putExtra("bookname", mQuickAdapterNew.getItem(position).getBookName());
                 startActivity(intent);
             }
         });
@@ -109,6 +115,7 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
 
     @Override
     public void newDatas(HomeDto data) {
+        bannerList=data.getBanner();
         List<String> bannerTitle = new ArrayList<String>();
         List<String> bannerImage = new ArrayList<String>();
         for(int i=0;i<data.getBanner().size();i++){

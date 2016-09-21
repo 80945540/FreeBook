@@ -13,8 +13,8 @@ import rx.Observer;
  * Created by Administrator on 2016/9/19.
  */
 public class BookInfoModel {
-    public void loadData(BookInfoListDto bookinfo, final OnLoadDataListListener listener){
-        HtmlData.getInstance().getBookInfo(bookinfo, new Observer<BookInfoDto>() {
+    public void loadData(String bookUrl,String bookName, final OnLoadDataListListener listener){
+        HtmlData.getInstance().getBookInfo(bookUrl,bookName, new Observer<BookInfoDto>() {
             @Override
             public void onCompleted() {
 
