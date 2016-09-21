@@ -27,7 +27,6 @@ import java.util.List;
 
 
 public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     private boolean mNextLoadEnable = false;
     private boolean mLoadingMoreEnable = false;
     private boolean mFirstOnlyEnable = true;
