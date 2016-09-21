@@ -5,7 +5,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
+import com.lance.freebook.MVP.Home.model.TasksManager;
 import com.lance.freebook.R;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadListener;
+import com.liulishuo.filedownloader.FileDownloadSampleListener;
+import com.liulishuo.filedownloader.model.FileDownloadStatus;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 

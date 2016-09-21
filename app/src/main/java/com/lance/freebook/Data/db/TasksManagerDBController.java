@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.lance.freebook.MVP.Entity.BookInfoDto;
 import com.lance.freebook.MVP.Entity.TasksManagerModel;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TasksManagerDBController {
-    public final static String TABLE_NAME = "tasksmanger";
+    public final static String TABLE_NAME = "freebook";
     public final SQLiteDatabase db;
 
     public TasksManagerDBController() {
@@ -80,13 +81,12 @@ public class TasksManagerDBController {
         return succeed ? model : null;
     }
 
+    public void removeTask(int id){
+        int dbType=db.delete(TABLE_NAME,"id=?",new String[]{id+""});
+        Log.d("TasksManagerDBControlle", "dbType:" + dbType);
+    }
+
     public String patch(String flie) {
-//        if (FileDownloadHelper.getAppContext().getExternalCacheDir() == null) {
-//            return Environment.getDownloadCacheDirectory().getAbsolutePath() + "/download/"+flie;
-//        } else {
-//            //noinspection ConstantConditions
-//            return FileDownloadHelper.getAppContext().getExternalCacheDir().getAbsolutePath() +"/download/"+flie;
-//        }
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
             //取得SD卡文件路径
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/freeBookDownload/"+flie;

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.lance.freebook.MVP.Entity.TasksManagerModel;
 
 public  class TasksManagerDBOpenHelper extends SQLiteOpenHelper {
-        public final static String DATABASE_NAME = "tasksmanager.db";
+        public final static String DATABASE_NAME = "freebook.db";
         public final static int DATABASE_VERSION = 2;
 
         public TasksManagerDBOpenHelper(Context context) {

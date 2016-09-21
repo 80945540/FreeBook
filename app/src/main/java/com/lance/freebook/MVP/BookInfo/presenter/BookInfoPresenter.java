@@ -25,8 +25,12 @@ public class BookInfoPresenter implements OnLoadDataListListener<BookInfoDto>{
 
     @Override
     public void onSuccess(BookInfoDto data) {
-        mView.newData(data);
-        mView.hideProgress();
+        if(data.getBookName().equals("")){
+            mView.showLoadFailMsg();
+        }else{
+            mView.newData(data);
+            mView.hideProgress();
+        }
     }
 
     @Override

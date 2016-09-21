@@ -1,24 +1,18 @@
 package com.lance.freebook.MVP.Home.model;
 
 import android.content.Intent;
-import android.os.Environment;
-import android.text.TextUtils;
 import android.util.SparseArray;
 
 import com.lance.freebook.Data.db.TasksManagerDBController;
 import com.lance.freebook.MVP.Entity.BookInfoDto;
 import com.lance.freebook.MVP.Entity.TasksManagerModel;
-import com.lance.freebook.MVP.Home.Fragment.HomeDownloadFragment;
 import com.lance.freebook.MyApplication.MyApplication;
 import com.lance.freebook.common.Constant;
+import com.lance.freebook.common.Lists;
 import com.liulishuo.filedownloader.BaseDownloadTask;
-import com.liulishuo.filedownloader.FileDownloadConnectListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.model.FileDownloadStatus;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
-
-import java.lang.ref.WeakReference;
-import java.util.List;
 
 public class TasksManager {
 
@@ -34,11 +28,9 @@ public class TasksManager {
 
     private TasksManagerDBController dbController;
 
-    private List<TasksManagerModel> modelList;
-
     private TasksManager() {
         dbController = new TasksManagerDBController();
-        modelList = dbController.getAllTasks();
+        Lists.dowonloadList = dbController.getAllTasks();
     }
 
     private SparseArray<BaseDownloadTask> taskSparseArray = new SparseArray<>();
@@ -68,33 +60,18 @@ public class TasksManager {
     public void onCreate() {
         if (!FileDownloader.getImpl().isServiceConnected()) {
             FileDownloader.getImpl().bindService();
-            if(modelList.size()>0){
+            if(Lists.dowonloadList.size()>0){
                 Intent intent=new Intent(Constant.ACTON_DOWNLOAD_NEW);
                 MyApplication.getInstance().sendBroadcast(intent);
             }
         }
     }
-
     public void onDestroy() {
         releaseTask();
     }
 
     public boolean isReady() {
         return FileDownloader.getImpl().isServiceConnected();
-    }
-
-    public TasksManagerModel get(final int position) {
-        return modelList.get(position);
-    }
-
-    public TasksManagerModel getById(final int id) {
-        for (TasksManagerModel model : modelList) {
-            if (model.getId() == id) {
-                return model;
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -117,43 +94,20 @@ public class TasksManager {
     public long getSoFar(final int id) {
         return FileDownloader.getImpl().getSoFar(id);
     }
-
-    public int getTaskCounts() {
-        return modelList.size();
+    public void removeTask(int id){
+        dbController.removeTask(id);
     }
-
     public TasksManagerModel addTask(BookInfoDto bookInfoDto) {
-        String path=patch(bookInfoDto.getBookName()+".txt");
-        if (TextUtils.isEmpty(path)) {
-            return null;
-        }
-
-        final int id =(int) System.currentTimeMillis();
-        TasksManagerModel model = getById(id);
-        if (model != null) {
-            return model;
-        }
         final TasksManagerModel newModel = dbController.addTask(bookInfoDto);
         if (newModel != null) {
-            modelList.add(newModel);
-            Intent intent=new Intent(Constant.ACTON_DOWNLOAD_ADD);
-            intent.putExtra("newModel",newModel);
-            MyApplication.getInstance().sendBroadcast(intent);
+            if(Lists.dowonloadList.size()==1){
+                Intent intent=new Intent(Constant.ACTON_DOWNLOAD_NEW);
+                MyApplication.getInstance().sendBroadcast(intent);
+            }else{
+                Intent intent=new Intent(Constant.ACTON_DOWNLOAD_ADD);
+                MyApplication.getInstance().sendBroadcast(intent);
+            }
         }
         return newModel;
-    }
-    public String patch(String flie){
-//        if (FileDownloadHelper.getAppContext().getExternalCacheDir() == null) {
-//            return Environment.getDownloadCacheDirectory().getAbsolutePath() + "/download/"+flie;
-//        } else {
-//            //noinspection ConstantConditions
-//            return FileDownloadHelper.getAppContext().getExternalCacheDir().getAbsolutePath() +"/download/"+flie;
-//        }
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-            //取得SD卡文件路径
-            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/freeBookDownload/"+flie;
-        }else{
-            return Environment.getDownloadCacheDirectory().getAbsolutePath() + "/freeBookDownload/"+flie;
-        }
     }
 }

@@ -1,10 +1,13 @@
 package com.lance.freebook.MVP.Adapter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
@@ -17,6 +20,7 @@ import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.model.FileDownloadStatus;
+import com.liulishuo.filedownloader.util.FileDownloadUtils;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
@@ -46,83 +50,128 @@ public class BookDownloadListAdapter extends BaseQuickAdapter<TasksManagerModel>
         helper.setOnClickListener(R.id.task_action_btn, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String action = ((Button)v).getText().toString();
-                if (action.equals(v.getResources().getString(R.string.pause))) {
-                    // to pause
-                    helper.setText(R.id.task_action_btn, "开始");
-                    FileDownloader.getImpl().pause(item.getId());
-                } else if (action.equals(v.getResources().getString(R.string.start))) {
-                    // to start
-                    final BaseDownloadTask task = FileDownloader.getImpl().create(item.getUrl())
-                            .setPath(item.getPath())
-                            .setCallbackProgressTimes(100)
-                            .setListener(new FileDownloadListener() {
-                                @Override
-                                protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                                    updateDownloading(FileDownloadStatus.pending, soFarBytes, totalBytes, helper);
-                                    Log.d("pending", "soFarBytes:" + soFarBytes+"     totalBytes:"+totalBytes);
-                                }
+                int action = (int) ((ImageView)v).getTag();
+                switch (action){
+                    case R.mipmap.download_ok:
+//                        new File(item.getPath()).delete();
+//                        updateNotDownloaded(FileDownloadStatus.INVALID_STATUS, 0, 0, helper);
+                        break;
+                    case R.mipmap.download_start:
+                        toStart(item, helper);
+                        break;
+                    case R.mipmap.download_pause:
+                        helper.setImageResource(R.id.task_action_btn,R.mipmap.download_start);
+                        helper.setTag(R.id.task_action_btn,R.mipmap.download_start);
+                        FileDownloader.getImpl().pause(item.getId());
+                        break;
+                    case R.mipmap.download_error:
 
-                                @Override
-                                protected void started(BaseDownloadTask task) {
-                                    helper.setText(R.id.task_status_tv, "开始下载");
-                                }
-
-                                @Override
-                                protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
-                                    updateDownloading(FileDownloadStatus.connected, soFarBytes, totalBytes, helper);
-                                    Log.d("connected", "soFarBytes:" + soFarBytes+"     totalBytes:"+totalBytes);
-                                }
-
-                                @Override
-                                protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                                    updateDownloading(FileDownloadStatus.progress, soFarBytes, totalBytes, helper);
-                                    Log.d("progress", "soFarBytes:" + soFarBytes+"     totalBytes:"+totalBytes);
-                                }
-
-                                @Override
-                                protected void error(BaseDownloadTask task, Throwable e) {
-                                    updateNotDownloaded(FileDownloadStatus.error, task.getLargeFileSoFarBytes(), task.getLargeFileTotalBytes(), helper);
-                                    TasksManager.getImpl().removeTaskForViewHolder(task.getId());
-                                }
-
-                                @Override
-                                protected void warn(BaseDownloadTask task) {
-
-                                }
-
-                                @Override
-                                protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                                    updateNotDownloaded(FileDownloadStatus.paused, soFarBytes, totalBytes, helper);
-                                    Log.d("paused", "soFarBytes:" + soFarBytes+"     totalBytes:"+totalBytes);
-                                    TasksManager.getImpl().removeTaskForViewHolder(task.getId());
-                                }
-
-                                @Override
-                                protected void completed(BaseDownloadTask task) {
-                                    helper.setMax(R.id.task_pb, 1);
-                                    helper.setProgress(R.id.task_pb, 1);
-                                    helper.setText(R.id.task_status_tv, "下载完成");
-                                    helper.setText(R.id.task_action_btn, "删除");
-                                    TasksManager.getImpl().removeTaskForViewHolder(task.getId());
-                                }
-                            });
-
-                    TasksManager.getImpl()
-                            .addTaskForViewHolder(task);
-
-                    TasksManager.getImpl()
-                            .updateViewHolder(item.getId(), helper);
-
-                    task.start();
-                } else if (action.equals(v.getResources().getString(R.string.delete))) {
-                    // to delete
-                    new File(item.getPath()).delete();
-                    updateNotDownloaded(FileDownloadStatus.INVALID_STATUS, 0, 0, helper);
+                        break;
+                    default:
+                        break;
                 }
             }
         });
+        TasksManager.getImpl()
+                .updateViewHolder(item.getId(), helper);
+        if (TasksManager.getImpl().isReady()) {
+            final int status = TasksManager.getImpl().getStatus(item.getId(), item.getPath());
+            if (status == FileDownloadStatus.pending || status == FileDownloadStatus.started ||
+                    status == FileDownloadStatus.connected) {
+                // start task, but file not created yet
+                updateDownloading(status, TasksManager.getImpl().getSoFar(item.getId())
+                        , TasksManager.getImpl().getTotal(item.getId()),helper);
+                toStart(item, helper);
+            } else if (!new File(item.getPath()).exists() &&
+                    !new File(FileDownloadUtils.getTempPath(item.getPath())).exists()) {
+                // not exist file
+                updateNotDownloaded(status, 0, 0,helper);
+                toStart(item, helper);
+            } else if (TasksManager.getImpl().isDownloaded(status)) {
+                // already downloaded and exist
+                helper.setMax(R.id.task_pb, 1);
+                helper.setProgress(R.id.task_pb, 1);
+                helper.setText(R.id.task_status_tv, "下载完成");
+                helper.setImageResource(R.id.task_action_btn,R.mipmap.download_ok);
+                helper.setTag(R.id.task_action_btn,R.mipmap.download_ok);
+            } else if (status == FileDownloadStatus.progress) {
+                // downloading
+                updateDownloading(status, TasksManager.getImpl().getSoFar(item.getId())
+                        , TasksManager.getImpl().getTotal(item.getId()),helper);
+                toStart(item, helper);
+            } else {
+                // not start
+                updateNotDownloaded(status, TasksManager.getImpl().getSoFar(item.getId())
+                        , TasksManager.getImpl().getTotal(item.getId()),helper);
+                toStart(item, helper);
+            }
+        } else {
+            helper.setText(R.id.task_status_tv, "加载中...");
+        }
     }
+
+    private void toStart(TasksManagerModel item, final BaseViewHolder helper) {
+        final BaseDownloadTask task = FileDownloader.getImpl().create(item.getUrl())
+                .setPath(item.getPath())
+                .setCallbackProgressTimes(100)
+                .setListener(new FileDownloadListener() {
+                    @Override
+                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        updateDownloading(FileDownloadStatus.pending, soFarBytes, totalBytes, helper);
+                    }
+
+                    @Override
+                    protected void started(BaseDownloadTask task) {
+                        helper.setText(R.id.task_status_tv, "开始下载");
+                    }
+
+                    @Override
+                    protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
+                        updateDownloading(FileDownloadStatus.connected, soFarBytes, totalBytes, helper);
+                    }
+
+                    @Override
+                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        updateDownloading(FileDownloadStatus.progress, soFarBytes, totalBytes, helper);
+                    }
+
+                    @Override
+                    protected void error(BaseDownloadTask task, Throwable e) {
+                        updateNotDownloaded(FileDownloadStatus.error, task.getLargeFileSoFarBytes(), task.getLargeFileTotalBytes(), helper);
+                        TasksManager.getImpl().removeTaskForViewHolder(task.getId());
+                    }
+
+                    @Override
+                    protected void warn(BaseDownloadTask task) {
+
+                    }
+
+                    @Override
+                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        updateNotDownloaded(FileDownloadStatus.paused, soFarBytes, totalBytes, helper);
+                        TasksManager.getImpl().removeTaskForViewHolder(task.getId());
+                    }
+
+                    @Override
+                    protected void completed(BaseDownloadTask task) {
+                        helper.setMax(R.id.task_pb, 1);
+                        helper.setProgress(R.id.task_pb, 1);
+                        helper.setText(R.id.task_status_tv, "下载完成");
+                        helper.setImageResource(R.id.task_action_btn,R.mipmap.download_ok);
+                        helper.setTag(R.id.task_action_btn,R.mipmap.download_ok);
+                        TasksManager.getImpl().removeTaskForViewHolder(task.getId());
+                    }
+                });
+
+        TasksManager.getImpl()
+                .addTaskForViewHolder(task);
+
+        TasksManager.getImpl()
+                .updateViewHolder(item.getId(), helper);
+
+        task.start();
+    }
+
 
     private void updateDownloading(final int status,  long sofar,  long total, BaseViewHolder helper) {
         float percent;
@@ -150,7 +199,8 @@ public class BookDownloadListAdapter extends BaseQuickAdapter<TasksManagerModel>
                 helper.setText(R.id.task_status_tv, "正在下载");
                 break;
         }
-        helper.setText(R.id.task_action_btn, "暂停");
+        helper.setImageResource(R.id.task_action_btn,R.mipmap.download_pause);
+        helper.setTag(R.id.task_action_btn,R.mipmap.download_pause);
     }
 
     public void updateNotDownloaded(final int status, final long sofar, final long total, BaseViewHolder helper) {
@@ -171,10 +221,14 @@ public class BookDownloadListAdapter extends BaseQuickAdapter<TasksManagerModel>
             case FileDownloadStatus.paused:
                 helper.setText(R.id.task_status_tv, "暂停");
                 break;
+            case FileDownloadStatus.INVALID_STATUS:
+                helper.setText(R.id.task_status_tv, "重试");
+                break;
             default:
                 helper.setText(R.id.task_status_tv, "出错");
                 break;
         }
-        helper.setText(R.id.task_action_btn, "开始");
+        helper.setImageResource(R.id.task_action_btn,R.mipmap.download_start);
+        helper.setTag(R.id.task_action_btn,R.mipmap.download_start);
     }
 }

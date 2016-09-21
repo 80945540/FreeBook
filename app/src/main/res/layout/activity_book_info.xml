@@ -109,7 +109,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/book_class_background"
+                    android:background="@drawable/book_info_background"
                     android:gravity="center"
                     android:padding="8dp">
                     <ImageView

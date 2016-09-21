@@ -4,13 +4,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.lance.freebook.Dialog.MyDialogDownload;
+import com.lance.freebook.Dialog.Mydialog_interface;
 import com.lance.freebook.MVP.Adapter.BookDownloadListAdapter;
 import com.lance.freebook.MVP.Entity.TasksManagerModel;
 import com.lance.freebook.MVP.Home.model.TasksManager;
@@ -18,10 +22,13 @@ import com.lance.freebook.MVP.Base.BaseFragment;
 import com.lance.freebook.R;
 import com.lance.freebook.common.Constant;
 import com.lance.freebook.common.Lists;
+import com.liulishuo.filedownloader.FileDownloader;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -58,9 +65,62 @@ public class HomeDownloadFragment extends BaseFragment  {
         downloadRecyclerview.setAdapter(mQuickAdapter);
         mQuickAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(View view, int position) {
-                Toast.makeText(getActivity(), "是否删除"+mQuickAdapter.getItem(position).getName(), Toast.LENGTH_SHORT).show();
-                return false;
+            public boolean onItemLongClick(View view, final int position) {
+                final MyDialogDownload myDialogDownload=new MyDialogDownload(getContext(),R.style.MyDialog1);
+                myDialogDownload.init(mQuickAdapter.getItem(position).getName(), new Mydialog_interface() {
+                    @Override
+                    public void onMyyes() {
+                        try {
+                            mQuickAdapter.remove(position);
+                            TasksManager.getImpl().removeTask(mQuickAdapter.getItem(position).getId());
+                            new File(mQuickAdapter.getItem(position).getPath()).delete();
+                        } catch (Exception e) {
+                        }
+                        myDialogDownload.dismiss();
+                    }
+
+                    @Override
+                    public void onMyno() {
+                        myDialogDownload.dismiss();
+                    }
+                });
+                myDialogDownload.show();
+                return true;
+            }
+        });
+        mQuickAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                int action = (int) view.findViewById(R.id.task_action_btn).getTag();
+                switch (action){
+                    case R.mipmap.download_ok:
+                        File file = new File(mQuickAdapter.getItem(position).getPath());
+                        if (file.exists()) {
+                            Uri path = Uri.fromFile(file);
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(path, "text/plain");
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            try {
+                                startActivity(intent);
+                            }
+                            catch (Exception e) {
+                                Toast.makeText(getContext(), "打开失败", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(getContext(), "文件不存在或已被删除", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case R.mipmap.download_start:
+                        Toast.makeText(getContext(), "书籍未下载", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.mipmap.download_pause:
+                        Toast.makeText(getContext(), "书籍下载中", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.mipmap.download_error:
+                        break;
+                    default:
+                        break;
+                }
             }
         });
         TasksManager.getImpl().onCreate();
@@ -89,9 +149,9 @@ public class HomeDownloadFragment extends BaseFragment  {
                 mQuickAdapter.setNewData(Lists.dowonloadList);//新增数据
             }
             if(Constant.ACTON_DOWNLOAD_ADD.equals(intent.getAction())){
-                TasksManagerModel newModel=intent.getParcelableExtra("newModel");
-                mQuickAdapter.add(0,newModel);
+                mQuickAdapter.notifyDataSetChanged();
             }
+            RefreshView();
         }
     }
 

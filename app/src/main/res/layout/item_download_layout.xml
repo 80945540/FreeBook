@@ -23,67 +23,79 @@
             android:scaleType="centerCrop"/>
         <LinearLayout
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_weight="1.0"
             android:layout_marginLeft="5dp"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/task_name_tv"
-                style="@style/TextStyle_title_golden"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="雪中悍刀行"/>
-            <TextView
-                android:id="@+id/task_author_tv"
-                style="@style/TextStyle_gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="作者:烽火戏诸侯"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/task_name_tv"
+                        style="@style/TextStyle_title_golden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="雪中悍刀行"/>
+                    <TextView
+                        android:id="@+id/task_author_tv"
+                        style="@style/TextStyle_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="作者:烽火戏诸侯"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/task_type_tv"
+                            style="@style/TextStyle_gray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="分类:现代都市"/>
+                        <TextView
+                            android:id="@+id/task_progress_tv"
+                            style="@style/TextStyle_gray"
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="进度:已完结"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/task_action_btn"
+                    android:layout_width="50dp"
+                    android:layout_gravity="center"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/download_start"
+                    />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/task_type_tv"
-                    style="@style/TextStyle_gray"
-                    android:layout_width="wrap_content"
+                <ProgressBar
+                    android:id="@+id/task_pb"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="分类:现代都市"/>
+                    android:layout_weight="1.0" />
                 <TextView
-                    android:id="@+id/task_progress_tv"
+                    android:id="@+id/task_status_tv"
                     style="@style/TextStyle_gray"
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="进度:已完结"/>
+                    android:textSize="10dp"
+                    android:text="下载成功"/>
             </LinearLayout>
-            <ProgressBar
-                android:id="@+id/task_pb"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1.0" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/task_action_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="开始"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                />
-            <TextView
-                android:id="@+id/task_status_tv"
-                style="@style/TextStyle_gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="未开始"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
