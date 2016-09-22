@@ -83,7 +83,6 @@ public class TasksManagerDBController {
 
     public void removeTask(int id){
         int dbType=db.delete(TABLE_NAME,"id=?",new String[]{id+""});
-        Log.d("TasksManagerDBControlle", "dbType:" + dbType);
     }
 
     public String patch(String flie) {
