@@ -71,9 +71,9 @@ public class HomeDownloadFragment extends BaseFragment  {
                     @Override
                     public void onMyyes() {
                         try {
-                            mQuickAdapter.remove(position);
-                            TasksManager.getImpl().removeTask(mQuickAdapter.getItem(position).getId());
                             new File(mQuickAdapter.getItem(position).getPath()).delete();
+                            TasksManager.getImpl().removeTask(mQuickAdapter.getItem(position).getId());
+                            mQuickAdapter.remove(position);
                         } catch (Exception e) {
                         }
                         myDialogDownload.dismiss();

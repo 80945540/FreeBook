@@ -31,7 +31,9 @@ import rx.schedulers.Schedulers;
  * Created by Administrator on 2016/9/14.
  */
 public class HtmlData {
+    //这里是设置一个缓存地址 如果地址不存在就新建一个
     private static File cacheDirectory = FileUtil.getcacheDirectory();
+    //添加缓存提供者
     private static final CacheProviders providers = new RxCache.Builder()
             .persistence(cacheDirectory)
             .using(CacheProviders.class);

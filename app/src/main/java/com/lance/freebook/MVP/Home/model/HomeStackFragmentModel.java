@@ -10,7 +10,7 @@ import java.util.List;
 import rx.Observer;
 
 /**
- * Created by Administrator on 2016/9/14.
+ * 获得类别数据
  */
 public class HomeStackFragmentModel {
 

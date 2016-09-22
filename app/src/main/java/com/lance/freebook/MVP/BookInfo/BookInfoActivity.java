@@ -58,7 +58,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
     ProgressActivity bookInfoProgress;
     @BindView(R.id.book_info_textview_download)
     TextView bookInfoTextviewDownload;
-    private String bookurl,bookname;
+    private String bookurl, bookname;
     private BookInfoDto bookInfoDto;
     private BookInfoPresenter presenter;
 
@@ -71,7 +71,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
     protected void findViewById() {
         Intent intent = getIntent();
         bookurl = intent.getStringExtra("bookurl");
-        bookname=intent.getStringExtra("bookname");
+        bookname = intent.getStringExtra("bookname");
         bookInfoToolbar.setTitle("");
         setSupportActionBar(bookInfoToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -97,8 +97,8 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
         bookInfoTextviewProgress.setText(data.getBookProgress());
         bookInfoTextviewUpdatetime.setText(data.getBookUpdateTime());
         bookInfoTextviewIntroduction.setText(Html.fromHtml(data.getBookIntroduction()));
-        for(TasksManagerModel model: Lists.dowonloadList){
-            if(model.getName().equals(data.getBookName())){
+        for (TasksManagerModel model : Lists.dowonloadList) {
+            if (model.getName().equals(data.getBookName())) {
                 bookInfoTextviewDownload.setText("已添加");
             }
         }
@@ -112,7 +112,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
     @Override
     protected void processLogic() {
         presenter = new BookInfoPresenter(this);
-        presenter.loadData(bookurl,bookname);
+        presenter.loadData(bookurl, bookname);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
                 Toast.makeText(mContext, "暂不支持", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.book_info_layout_download:
-                if(bookInfoTextviewDownload.getText().toString().equals("TXT下载")){
+                if (bookInfoTextviewDownload.getText().toString().equals("TXT下载")) {
                     TasksManager.getImpl().addTask(bookInfoDto);
                     bookInfoTextviewDownload.setText("已添加");
                 }
@@ -154,13 +154,14 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
     public void showLoadFailMsg() {
         toError();
     }
-    public void toError(){
+
+    public void toError() {
         bookInfoProgress.showError(getResources().getDrawable(R.mipmap.load_error), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bookInfoProgress.showLoading();
                 //重试
-                presenter.loadData(bookurl,bookname);
+                presenter.loadData(bookurl, bookname);
             }
         });
     }
