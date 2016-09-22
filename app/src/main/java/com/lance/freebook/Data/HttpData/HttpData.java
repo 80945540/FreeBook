@@ -23,6 +23,9 @@ import rx.schedulers.Schedulers;
 /*
  *所有的请求数据的方法集中地
  * 根据MovieService的定义编写合适的方法
+ * 其中observable是获取API数据
+ * observableCahce获取缓存数据
+ * new EvictDynamicKey(false) false使用缓存  true 加载数据不使用缓存
  */
 public class HttpData extends RetrofitUtils {
 
@@ -77,16 +80,6 @@ public class HttpData extends RetrofitUtils {
     /**
      * 用来统一处理RxCacha的结果
      */
-//    private  class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
-//
-//        @Override
-//        public T call(HttpResult<T> httpResult) {
-//            if (httpResult.getCode() !=1 ) {
-//                throw new ApiException(httpResult);
-//            }
-//            return httpResult.getResults();
-//        }
-//    }
     private  class HttpResultFuncCcche<T> implements Func1<Reply<T>, T> {
 
         @Override

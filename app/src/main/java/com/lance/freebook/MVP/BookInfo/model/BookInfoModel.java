@@ -10,7 +10,7 @@ import com.lance.freebook.MVP.Home.model.OnLoadDataListListener;
 import rx.Observer;
 
 /**
- * Created by Administrator on 2016/9/19.
+ * 获取书籍详情数据
  */
 public class BookInfoModel {
     public void loadData(String bookUrl,String bookName, final OnLoadDataListListener listener){
