@@ -6,7 +6,7 @@
 
 >至于需求什么的我就不说了,对于准备毕业项目的同学学会这个你会觉得毕业项目非常easy
 
->[api帮助文档](mylance.top/index.html)
+>[api帮助文档](http://mylance.top/index.html)
 
 >[APK下载 免费下载小说  学习的同时 还能拿到不少的干货](http://fir.im/FreeBook)
 
