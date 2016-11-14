@@ -5,8 +5,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.lance.freebook.MVP.Home.model.TasksManager;
+import com.lance.freebook.MVP.WelcomeActivity;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.util.FileDownloadHelper;
+import com.xiaochao.lcrapiddeveloplibrary.Exception.core.Recovery;
 
 import java.net.Proxy;
 import java.util.ArrayList;
@@ -29,6 +31,17 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        //异常友好管理初始化
+        Recovery.getInstance()
+                .debug(true)
+                .recoverInBackground(false)
+                .recoverStack(true)
+                .mainPage(WelcomeActivity.class)
+//                .skip(H5PayActivity.class)  如果应用集成支付宝支付 记得加上这句代码  没时间解释了  快上车  老司机发车了
+                .init(this);
+
+
         //文件下载管理初始化
         FileDownloader.init(getApplicationContext(),
                 new FileDownloadHelper.OkHttpClientCustomMaker() { // is not has to provide.

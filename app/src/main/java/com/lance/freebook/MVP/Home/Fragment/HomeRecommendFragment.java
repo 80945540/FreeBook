@@ -2,18 +2,14 @@ package com.lance.freebook.MVP.Home.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.lance.freebook.MVP.Adapter.BGABannerAdapter;
 import com.lance.freebook.MVP.Adapter.BookInfoGridAdapter;
-import com.lance.freebook.MVP.Adapter.BookInfoListAdapter;
 import com.lance.freebook.MVP.Base.BaseFragment;
 import com.lance.freebook.MVP.BookInfo.BookInfoActivity;
 import com.lance.freebook.MVP.Entity.BannerDto;
@@ -23,7 +19,9 @@ import com.lance.freebook.MVP.Home.view.HomeRecommendFragmentView;
 import com.lance.freebook.R;
 import com.lance.freebook.common.Constant;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
+import com.xiaochao.lcrapiddeveloplibrary.container.DefaultHeader;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
+import com.xiaochao.lcrapiddeveloplibrary.widget.SpringView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,7 @@ import butterknife.ButterKnife;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 
-public class HomeRecommendFragment extends BaseFragment implements HomeRecommendFragmentView{
+public class HomeRecommendFragment extends BaseFragment implements HomeRecommendFragmentView,SpringView.OnFreshListener {
 
     @BindView(R.id.home_recommend_banner)
     BGABanner homeRecommendBanner;
@@ -43,10 +41,13 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
     RecyclerView homeDownlaodRecommendNew;
     @BindView(R.id.home_recommend_progress)
     ProgressActivity homeRecommendProgress;
+    @BindView(R.id.home_recommend_springview)
+    SpringView homeRecommendSpringview;
     private HomeRecommendFragmentPresenter presenter;
     private BookInfoGridAdapter mQuickAdapterHot;
     private BookInfoGridAdapter mQuickAdapterNew;
-    private List<BannerDto> bannerList=new ArrayList<BannerDto>();
+    private List<BannerDto> bannerList = new ArrayList<BannerDto>();
+
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
         return inflater.inflate(R.layout.fragment_home_recommend, container, false);
@@ -54,23 +55,26 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
 
     @Override
     protected void initListener() {
+        homeRecommendSpringview.setListener(this);
+        homeRecommendSpringview.setHeader(new DefaultHeader(getContext()));
+
+
         //首页Banner点击事件
         homeRecommendBanner.setOnItemClickListener(new BGABanner.OnItemClickListener() {
             @Override
             public void onBannerItemClick(BGABanner banner, View view, Object model, int position) {
-                Intent intent=new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookurl", bannerList.get(position).getUrl());
-                intent.putExtra("bookname", bannerList.get(position).getBannerTitle());
+                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
+                intent.putExtra("bookid", bannerList.get(position).getBookid());
                 startActivity(intent);
             }
         });
-        homeDownlaodRecommendHot.setLayoutManager(new GridLayoutManager(getActivity(),4));
-        homeDownlaodRecommendNew.setLayoutManager(new GridLayoutManager(getActivity(),4));
+        homeDownlaodRecommendHot.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        homeDownlaodRecommendNew.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         //如果Item高度固定  增加该属性能够提高效率
         homeDownlaodRecommendHot.setHasFixedSize(true);
         homeDownlaodRecommendNew.setHasFixedSize(true);
-        mQuickAdapterHot = new BookInfoGridAdapter(R.layout.item_home_books_layout,null);
-        mQuickAdapterNew = new BookInfoGridAdapter(R.layout.item_home_books_layout,null);
+        mQuickAdapterHot = new BookInfoGridAdapter(R.layout.item_home_books_layout, null);
+        mQuickAdapterNew = new BookInfoGridAdapter(R.layout.item_home_books_layout, null);
         //设置加载动画
         mQuickAdapterHot.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mQuickAdapterNew.openLoadAnimation(BaseQuickAdapter.SCALEIN);
@@ -80,18 +84,16 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
         mQuickAdapterHot.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent=new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookurl", mQuickAdapterHot.getItem(position).getCodeId());
-                intent.putExtra("bookname", mQuickAdapterHot.getItem(position).getBookName());
+                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
+                intent.putExtra("bookid", bannerList.get(position).getBookid());
                 startActivity(intent);
             }
         });
         mQuickAdapterNew.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent=new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookurl", mQuickAdapterNew.getItem(position).getCodeId());
-                intent.putExtra("bookname", mQuickAdapterNew.getItem(position).getBookName());
+                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
+                intent.putExtra("bookid", bannerList.get(position).getBookid());
                 startActivity(intent);
             }
         });
@@ -100,7 +102,7 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
     @Override
     protected void initData() {
         presenter = new HomeRecommendFragmentPresenter(this);
-        presenter.LoadData();
+        presenter.LoadData(false);
     }
 
     @Override
@@ -115,10 +117,10 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
 
     @Override
     public void newDatas(HomeDto data) {
-        bannerList=data.getBanner();
+        bannerList = data.getBanner();
         List<String> bannerTitle = new ArrayList<String>();
         List<String> bannerImage = new ArrayList<String>();
-        for(int i=0;i<data.getBanner().size();i++){
+        for (int i = 0; i < data.getBanner().size(); i++) {
             bannerTitle.add(data.getBanner().get(i).getBannerTitle());
             bannerImage.add(data.getBanner().get(i).getImageUrl());
         }
@@ -133,14 +135,33 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
     public void showLoadFailMsg() {
         toError();
     }
-    public void toError(){
+
+    public void toError() {
         homeRecommendProgress.showError(getResources().getDrawable(R.mipmap.load_error), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 homeRecommendProgress.showLoading();
                 //重试
-                presenter.LoadData();
+                presenter.LoadData(true);
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.LoadData(true);
+    }
+
+    @Override
+    public void onLoadmore() {
+
     }
 }

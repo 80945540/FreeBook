@@ -10,8 +10,8 @@ import rx.Observer;
  */
 public class HomeRecommendFragmentModel {
 
-    public void loadData(final OnLoadDataListListener listener){
-        HttpData.getInstance().getHomeInfo(new Observer<HomeDto>() {
+    public void loadData(boolean isload,final OnLoadDataListListener listener){
+        HttpData.getInstance().getHomeInfo(isload,new Observer<HomeDto>() {
             @Override
             public void onCompleted() {
 

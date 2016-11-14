@@ -27,7 +27,7 @@ public class StackInfoFragmentPresenter implements OnLoadDataListListener<List<B
         this.isLoad=isLoad;
         this.bookTypeDto=bookTypeDto;
         this.page=page;
-        mModel.LoadData(bookTypeDto,page,this);
+        mModel.LoadData(bookTypeDto.getBookTypeid(),page,this);
 
     }
 

@@ -7,60 +7,71 @@ import android.os.Parcelable;
  * Created by Administrator on 2016/9/14.
  */
 public class BookTypeDto implements Parcelable {
-    private String BookTypeUrl;
-    private String BookTypeName;
-    private String BookTypeImageUrl;
-    private int StartPage;
-    private int EndPage;
+
+    /**
+     * id : 1
+     * bookTypeid : 1
+     * bookTypeImageUrl : http://odog3v89f.bkt.clouddn.com/image/wxxs.png
+     * bookTypeName : 武侠仙侠
+     * startPage : 1
+     * endPage : 99
+     * pageLength : 30
+     */
+
+    private int id;
+    private int bookTypeid;
+    private String bookTypeImageUrl;
+    private String bookTypeName;
+    private int startPage;
+    private int endPage;
     private int pageLength;
 
-    public BookTypeDto(String bookTypeUrl, String bookTypeName, String bookTypeImageUrl, int startPage, int endPage, int pageLength) {
-        BookTypeUrl = bookTypeUrl;
-        BookTypeName = bookTypeName;
-        BookTypeImageUrl = bookTypeImageUrl;
-        StartPage = startPage;
-        EndPage = endPage;
-        this.pageLength = pageLength;
+    public int getId() {
+        return id;
     }
 
-    public String getBookTypeUrl() {
-        return BookTypeUrl;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setBookTypeUrl(String bookTypeUrl) {
-        BookTypeUrl = bookTypeUrl;
+    public int getBookTypeid() {
+        return bookTypeid;
     }
 
-    public String getBookTypeName() {
-        return BookTypeName;
-    }
-
-    public void setBookTypeName(String bookTypeName) {
-        BookTypeName = bookTypeName;
+    public void setBookTypeid(int bookTypeid) {
+        this.bookTypeid = bookTypeid;
     }
 
     public String getBookTypeImageUrl() {
-        return BookTypeImageUrl;
+        return bookTypeImageUrl;
     }
 
     public void setBookTypeImageUrl(String bookTypeImageUrl) {
-        BookTypeImageUrl = bookTypeImageUrl;
+        this.bookTypeImageUrl = bookTypeImageUrl;
+    }
+
+    public String getBookTypeName() {
+        return bookTypeName;
+    }
+
+    public void setBookTypeName(String bookTypeName) {
+        this.bookTypeName = bookTypeName;
     }
 
     public int getStartPage() {
-        return StartPage;
+        return startPage;
     }
 
     public void setStartPage(int startPage) {
-        StartPage = startPage;
+        this.startPage = startPage;
     }
 
     public int getEndPage() {
-        return EndPage;
+        return endPage;
     }
 
     public void setEndPage(int endPage) {
-        EndPage = endPage;
+        this.endPage = endPage;
     }
 
     public int getPageLength() {
@@ -78,24 +89,29 @@ public class BookTypeDto implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.BookTypeUrl);
-        dest.writeString(this.BookTypeName);
-        dest.writeString(this.BookTypeImageUrl);
-        dest.writeInt(this.StartPage);
-        dest.writeInt(this.EndPage);
+        dest.writeInt(this.id);
+        dest.writeInt(this.bookTypeid);
+        dest.writeString(this.bookTypeImageUrl);
+        dest.writeString(this.bookTypeName);
+        dest.writeInt(this.startPage);
+        dest.writeInt(this.endPage);
         dest.writeInt(this.pageLength);
     }
 
+    public BookTypeDto() {
+    }
+
     protected BookTypeDto(Parcel in) {
-        this.BookTypeUrl = in.readString();
-        this.BookTypeName = in.readString();
-        this.BookTypeImageUrl = in.readString();
-        this.StartPage = in.readInt();
-        this.EndPage = in.readInt();
+        this.id = in.readInt();
+        this.bookTypeid = in.readInt();
+        this.bookTypeImageUrl = in.readString();
+        this.bookTypeName = in.readString();
+        this.startPage = in.readInt();
+        this.endPage = in.readInt();
         this.pageLength = in.readInt();
     }
 
-    public static final Creator<BookTypeDto> CREATOR = new Creator<BookTypeDto>() {
+    public static final Parcelable.Creator<BookTypeDto> CREATOR = new Parcelable.Creator<BookTypeDto>() {
         @Override
         public BookTypeDto createFromParcel(Parcel source) {
             return new BookTypeDto(source);

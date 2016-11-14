@@ -18,8 +18,8 @@ public class HomeRecommendFragmentPresenter implements OnLoadDataListListener<Ho
         mView.showProgress();
     }
 
-    public void LoadData(){
-        mModel.loadData(this);
+    public void LoadData(boolean isload){
+        mModel.loadData(isload,this);
     }
 
     @Override

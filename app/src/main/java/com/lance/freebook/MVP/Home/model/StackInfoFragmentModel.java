@@ -1,10 +1,7 @@
 package com.lance.freebook.MVP.Home.model;
 
-import android.util.Log;
-
-import com.lance.freebook.Data.HtmlData.HtmlData;
+import com.lance.freebook.Data.HttpData.HttpData;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
-import com.lance.freebook.MVP.Entity.BookTypeDto;
 
 import java.util.List;
 
@@ -15,8 +12,8 @@ import rx.Observer;
  */
 public class StackInfoFragmentModel {
 
-    public void LoadData(BookTypeDto bookType,int page, final OnLoadDataListListener listener){
-        HtmlData.getInstance().getStackTypeHtml(bookType,page,new Observer<List<BookInfoListDto>>() {
+    public void LoadData(int bookType,int page, final OnLoadDataListListener listener){
+        HttpData.getInstance().getBookList(bookType,page,new Observer<List<BookInfoListDto>>() {
             @Override
             public void onCompleted() {
 

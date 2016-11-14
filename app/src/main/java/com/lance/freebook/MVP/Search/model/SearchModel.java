@@ -1,6 +1,5 @@
 package com.lance.freebook.MVP.Search.model;
 
-import com.lance.freebook.Data.HtmlData.HtmlData;
 import com.lance.freebook.Data.HttpData.HttpData;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
 import com.lance.freebook.MVP.Home.model.OnLoadDataListListener;
@@ -15,7 +14,7 @@ import rx.Observer;
 public class SearchModel {
 
     public void loadData(String key, final OnLoadDataListListener listener){
-        HtmlData.getInstance().getSearchList(key, new Observer<List<BookInfoListDto>>() {
+        HttpData.getInstance().getSearchList(key, new Observer<List<BookInfoListDto>>() {
             @Override
             public void onCompleted() {
 

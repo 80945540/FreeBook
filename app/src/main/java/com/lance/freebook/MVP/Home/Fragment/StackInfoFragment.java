@@ -69,9 +69,9 @@ public class StackInfoFragment extends BaseFragment implements BaseQuickAdapter.
         mQuickAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+
                 Intent intent=new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookurl", mQuickAdapter.getItem(position).getCodeId());
-                intent.putExtra("bookname", mQuickAdapter.getItem(position).getBookName());
+                intent.putExtra("bookid", mQuickAdapter.getItem(position).getId());
                 startActivity(intent);
             }
         });

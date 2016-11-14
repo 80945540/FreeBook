@@ -1,8 +1,6 @@
 package com.lance.freebook.MVP.Home.model;
 
-import com.lance.freebook.Data.HtmlData.HtmlData;
 import com.lance.freebook.Data.HttpData.HttpData;
-import com.lance.freebook.MVP.Entity.BookInfoListDto;
 import com.lance.freebook.MVP.Entity.BookTypeDto;
 
 import java.util.List;

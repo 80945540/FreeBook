@@ -7,19 +7,20 @@ import android.os.Parcelable;
  * Created by Administrator on 2016/9/12.
  */
 public class BookInfoListDto implements Parcelable {
+
+    /**
+     * imageUrl : http://img.txt99.cc/Cover/23/23639.jpg
+     * bookName : 庶女有毒
+     * author : 作者：秦简
+     * introduction : 相府庶女，苦熬八年，一朝为后，凤临天下！孰知世事难料，皇帝夫君竟然对她嫡姐一见钟...
+     * id : 23639
+     */
+
     private String imageUrl;
     private String bookName;
     private String author;
     private String introduction;
-    private String codeId;
-
-    public BookInfoListDto(String imageUrl, String bookName, String author, String introduction, String codeId) {
-        this.imageUrl = imageUrl;
-        this.bookName = bookName;
-        this.author = author;
-        this.introduction = introduction;
-        this.codeId = codeId;
-    }
+    private int id;
 
     public String getImageUrl() {
         return imageUrl;
@@ -53,23 +54,12 @@ public class BookInfoListDto implements Parcelable {
         this.introduction = introduction;
     }
 
-    public String getCodeId() {
-        return codeId;
+    public int getId() {
+        return id;
     }
 
-    public void setCodeId(String codeId) {
-        this.codeId = codeId;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "\"imageUrl\"=\"" + imageUrl + '\"' +
-                ", \"bookName\"=\"" + bookName + '\"' +
-                ", \"author\"=\"" + author + '\"' +
-                ", \"introduction\"=\"" + introduction + '\"' +
-                ", \"codeId\"=\"" + codeId + '\"' +
-                '}';
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -83,7 +73,10 @@ public class BookInfoListDto implements Parcelable {
         dest.writeString(this.bookName);
         dest.writeString(this.author);
         dest.writeString(this.introduction);
-        dest.writeString(this.codeId);
+        dest.writeInt(this.id);
+    }
+
+    public BookInfoListDto() {
     }
 
     protected BookInfoListDto(Parcel in) {
@@ -91,7 +84,7 @@ public class BookInfoListDto implements Parcelable {
         this.bookName = in.readString();
         this.author = in.readString();
         this.introduction = in.readString();
-        this.codeId = in.readString();
+        this.id = in.readInt();
     }
 
     public static final Parcelable.Creator<BookInfoListDto> CREATOR = new Parcelable.Creator<BookInfoListDto>() {

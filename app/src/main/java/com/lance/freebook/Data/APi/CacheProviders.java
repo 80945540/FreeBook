@@ -24,12 +24,12 @@ import rx.Observable;
  * DynamicKeyGroup。驱逐一组与key关联的数据，使用EvictDynamicKeyGroup。比如分页，排序或筛选要求
  */
 public interface CacheProviders {
-    //获取书库对应类别列表  缓存时间 1天
+    //获取书库对应类别书籍列表  缓存时间 1天
     @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
-    Observable<Reply<List<BookInfoListDto>>> getStackTypeList(Observable<List<BookInfoListDto>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+    Observable<Reply<List<BookInfoListDto>>> getBookList(Observable<List<BookInfoListDto>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 
     //获取书库分类信息缓存数据 缓存时间 永久
-    Observable<Reply<List<BookTypeDto>>> getBookTypes(Observable<List<BookTypeDto>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+    Observable<Reply<List<BookTypeDto>>> getTypeList(Observable<List<BookTypeDto>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 
     //获取首页配置数据 banner 最热 最新  缓存时间7天
     @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
@@ -37,9 +37,13 @@ public interface CacheProviders {
 
     //获取搜索标签  缓存时间7天
     @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
-    Observable<Reply<List<String>>> getSearchLable(Observable<List<String>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+    Observable<Reply<List<String>>> getHotLable(Observable<List<String>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 
     //获取书籍详情  缓存时间7天
     @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
     Observable<Reply<BookInfoDto>> getBookInfo(Observable<BookInfoDto> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+
+    //根据关键词获取搜素列表  缓存时间1天
+    @LifeCache(duration = 1, timeUnit = TimeUnit.DAYS)
+    Observable<Reply<BookInfoListDto>> getSearchList(Observable<BookInfoListDto> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 }

@@ -18,8 +18,8 @@ public class BookInfoPresenter implements OnLoadDataListListener<BookInfoDto>{
         mModel=new BookInfoModel();
     }
 
-    public void loadData(String bookUrl,String bookName){
-        mModel.loadData(bookUrl,bookName,this);
+    public void loadData(int id){
+        mModel.loadData(id,this);
         mView.showProgress();
     }
 

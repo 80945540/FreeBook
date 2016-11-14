@@ -58,7 +58,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
     ProgressActivity bookInfoProgress;
     @BindView(R.id.book_info_textview_download)
     TextView bookInfoTextviewDownload;
-    private String bookurl, bookname;
+    private int  bookid;
     private BookInfoDto bookInfoDto;
     private BookInfoPresenter presenter;
 
@@ -70,8 +70,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
     @Override
     protected void findViewById() {
         Intent intent = getIntent();
-        bookurl = intent.getStringExtra("bookurl");
-        bookname = intent.getStringExtra("bookname");
+        bookid = intent.getIntExtra("bookid",0);
         bookInfoToolbar.setTitle("");
         setSupportActionBar(bookInfoToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -112,7 +111,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
     @Override
     protected void processLogic() {
         presenter = new BookInfoPresenter(this);
-        presenter.loadData(bookurl, bookname);
+        presenter.loadData(bookid);
     }
 
     @Override
@@ -161,7 +160,7 @@ public class BookInfoActivity extends BaseActivity implements BookInfoView {
             public void onClick(View v) {
                 bookInfoProgress.showLoading();
                 //重试
-                presenter.loadData(bookurl, bookname);
+                presenter.loadData(bookid);
             }
         });
     }

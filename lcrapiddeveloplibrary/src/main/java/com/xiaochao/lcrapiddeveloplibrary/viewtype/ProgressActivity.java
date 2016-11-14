@@ -150,7 +150,7 @@ public class ProgressActivity extends RelativeLayout {
                 typedArray.getColor(R.styleable.ProgressActivity_errorContentTextColor, Color.BLACK);
 
         errorStateButtonTextColor =
-                typedArray.getColor(R.styleable.ProgressActivity_errorButtonTextColor, Color.WHITE);
+                typedArray.getColor(R.styleable.ProgressActivity_errorButtonTextColor, Color.BLACK);
 
         errorStateBackgroundColor =
                 typedArray.getColor(R.styleable.ProgressActivity_errorBackgroundColor, Color.TRANSPARENT);
