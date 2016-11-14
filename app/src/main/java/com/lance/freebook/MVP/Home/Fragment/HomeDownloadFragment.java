@@ -77,6 +77,7 @@ public class HomeDownloadFragment extends BaseFragment  {
                         }
                         TasksManager.getImpl().removeTask(mQuickAdapter.getItem(position).getId());
                         mQuickAdapter.remove(position);
+                        RefreshView();
                         myDialogDownload.dismiss();
                     }
 

@@ -5,8 +5,7 @@ package com.lance.freebook.common;
  * 本类存放项目所需常量
  */
 public class Constant {
-    public static String API_SERVER="http://odog3v89f.bkt.clouddn.com";
-    public static String API_SEARCH="http://m.txt99.cc/search/result/searchtype/complex/searchkey/{Key}/page/1";
+    public static String API_SERVER="http://112.74.93.67";
 
 
     public static final String EMPTY_TITLE_BOOKS="这个分类还没书籍";

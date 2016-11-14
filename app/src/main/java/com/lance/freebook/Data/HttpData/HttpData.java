@@ -1,7 +1,7 @@
 package com.lance.freebook.Data.HttpData;
 
 import com.lance.freebook.Data.APi.CacheProviders;
-import com.lance.freebook.Data.APi.MovieService;
+import com.lance.freebook.Data.APi.BookService;
 import com.lance.freebook.Data.Retrofit.RetrofitUtils;
 import com.lance.freebook.MVP.Entity.BookTypeDto;
 import com.lance.freebook.MVP.Entity.HomeDto;
@@ -33,7 +33,7 @@ public class HttpData extends RetrofitUtils {
     private static final CacheProviders providers = new RxCache.Builder()
             .persistence(cacheDirectory)
             .using(CacheProviders.class);
-    protected static final MovieService service = getRetrofit().create(MovieService.class);
+    protected static final BookService service = getRetrofit().create(BookService.class);
 
     //在访问HttpMethods时创建单例
     private static class SingletonHolder {

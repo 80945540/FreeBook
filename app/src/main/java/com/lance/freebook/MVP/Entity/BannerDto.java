@@ -6,14 +6,24 @@ package com.lance.freebook.MVP.Entity;
 public class BannerDto {
 
     /**
-     * imageUrl : http://img1.youzy.cn/content2/thumbs/p00393573.jpeg
-     * bannerTitle : banner测试
-     * Url :
+     * id : 1
+     * imageUrl : http://odog3v89f.bkt.clouddn.com/banner/banner1.png
+     * bannerTitle : 游离在正邪边缘的人:残袍
+     * bookid : 29286
      */
 
+    private int id;
     private String imageUrl;
     private String bannerTitle;
-    private String Url;
+    private int bookid;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -31,11 +41,11 @@ public class BannerDto {
         this.bannerTitle = bannerTitle;
     }
 
-    public String getUrl() {
-        return Url;
+    public int getBookid() {
+        return bookid;
     }
 
-    public void setUrl(String Url) {
-        this.Url = Url;
+    public void setBookid(int bookid) {
+        this.bookid = bookid;
     }
 }

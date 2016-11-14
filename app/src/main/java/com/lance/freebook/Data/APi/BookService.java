@@ -12,14 +12,14 @@ import rx.Observable;
  * API接口
  * 因为使用RxCache作为缓存策略 所以这里不需要写缓存信息
  */
-public interface MovieService {
+public interface BookService {
 
     //获取书库分类信息
-    @GET("freebook/typeconfigs.json")
+    @GET("api/getTypeConfigList")
     Observable<List<BookTypeDto>> getBookTypes();
 
     //获得首页banner以及书籍数据
-    @GET("freebook/home.json")
+    @GET("api/getHomeInfo")
     Observable<HomeDto> getHomeInfo();
 
     //获得搜索标签

@@ -169,7 +169,7 @@ public class BookDownloadListAdapter extends BaseQuickAdapter<TasksManagerModel>
         TasksManager.getImpl()
                 .updateViewHolder(item.getId(), helper);
 
-        task.start();
+        item.setId(task.start());
     }
 
 
