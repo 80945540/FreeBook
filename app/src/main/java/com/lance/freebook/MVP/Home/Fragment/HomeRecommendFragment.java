@@ -85,7 +85,7 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookid", bannerList.get(position).getBookid());
+                intent.putExtra("bookid", mQuickAdapterHot.getItem(position).getId());
                 startActivity(intent);
             }
         });
@@ -93,7 +93,7 @@ public class HomeRecommendFragment extends BaseFragment implements HomeRecommend
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), BookInfoActivity.class);
-                intent.putExtra("bookid", bannerList.get(position).getBookid());
+                intent.putExtra("bookid", mQuickAdapterNew.getItem(position).getId());
                 startActivity(intent);
             }
         });
