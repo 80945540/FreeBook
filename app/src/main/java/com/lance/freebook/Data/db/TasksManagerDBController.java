@@ -4,15 +4,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.lance.freebook.MVP.Entity.BookInfoDto;
 import com.lance.freebook.MVP.Entity.TasksManagerModel;
 import com.lance.freebook.MyApplication.MyApplication;
-import com.lance.freebook.R;
-import com.lance.freebook.common.Lists;
-import com.liulishuo.filedownloader.util.FileDownloadHelper;
-import com.liulishuo.filedownloader.util.FileDownloadUtils;
+import com.lance.freebook.Constant.Lists;
 
 import java.util.ArrayList;
 import java.util.List;

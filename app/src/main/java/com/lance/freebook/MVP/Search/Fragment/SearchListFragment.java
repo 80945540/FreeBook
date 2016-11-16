@@ -1,31 +1,26 @@
 package com.lance.freebook.MVP.Search.Fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.lance.freebook.MVP.Adapter.BookInfoListAdapter;
 import com.lance.freebook.MVP.Base.BaseFragment;
 import com.lance.freebook.MVP.BookInfo.BookInfoActivity;
 import com.lance.freebook.MVP.Entity.BookInfoListDto;
-import com.lance.freebook.MVP.Entity.BookTypeDto;
 import com.lance.freebook.MVP.Search.View.SearchListView;
 import com.lance.freebook.MVP.Search.presenter.SearchPresenter;
 import com.lance.freebook.R;
-import com.lance.freebook.common.Constant;
+import com.lance.freebook.Constant.Constant;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SearchListFragment extends BaseFragment implements SearchListView {
 

@@ -24,7 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 锁定竖屏
-		// setTheme(R.style.AnimationActivity);//设置切换动画
 		mContext = getActivityContext();
 		initView();
 		ButterKnife.bind(this);
@@ -53,10 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 		// TODO Auto-generated method stub
 		super.onPause();
 //		StatService.onResume(mContext);
-	}
-
-	public void checkNetWork() {
-
 	}
 
 	@Override

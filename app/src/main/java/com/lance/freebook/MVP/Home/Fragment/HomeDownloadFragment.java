@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +15,15 @@ import android.widget.Toast;
 import com.lance.freebook.Dialog.MyDialogDownload;
 import com.lance.freebook.Dialog.Mydialog_interface;
 import com.lance.freebook.MVP.Adapter.BookDownloadListAdapter;
-import com.lance.freebook.MVP.Entity.TasksManagerModel;
 import com.lance.freebook.MVP.Home.model.TasksManager;
 import com.lance.freebook.MVP.Base.BaseFragment;
 import com.lance.freebook.R;
-import com.lance.freebook.common.Constant;
-import com.lance.freebook.common.Lists;
-import com.liulishuo.filedownloader.FileDownloader;
+import com.lance.freebook.Constant.Constant;
+import com.lance.freebook.Constant.Lists;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
 import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.List;
 
 import butterknife.BindView;
 

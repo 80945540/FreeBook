@@ -1,6 +1,6 @@
 package com.lance.freebook.Data.Retrofit;
 
-import com.lance.freebook.common.Constant;
+import com.lance.freebook.Constant.Constant;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

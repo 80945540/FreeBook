@@ -2,7 +2,6 @@ package com.lance.freebook.MVP.BookInfo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
@@ -16,16 +15,14 @@ import com.lance.freebook.MVP.Base.BaseActivity;
 import com.lance.freebook.MVP.BookInfo.presenter.BookInfoPresenter;
 import com.lance.freebook.MVP.BookInfo.view.BookInfoView;
 import com.lance.freebook.MVP.Entity.BookInfoDto;
-import com.lance.freebook.MVP.Entity.BookInfoListDto;
 import com.lance.freebook.MVP.Entity.TasksManagerModel;
 import com.lance.freebook.MVP.Home.model.TasksManager;
 import com.lance.freebook.R;
-import com.lance.freebook.common.Constant;
-import com.lance.freebook.common.Lists;
+import com.lance.freebook.Constant.Constant;
+import com.lance.freebook.Constant.Lists;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class BookInfoActivity extends BaseActivity implements BookInfoView {

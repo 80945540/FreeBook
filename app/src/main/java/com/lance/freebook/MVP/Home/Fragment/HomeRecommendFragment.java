@@ -17,7 +17,7 @@ import com.lance.freebook.MVP.Entity.HomeDto;
 import com.lance.freebook.MVP.Home.presenter.HomeRecommendFragmentPresenter;
 import com.lance.freebook.MVP.Home.view.HomeRecommendFragmentView;
 import com.lance.freebook.R;
-import com.lance.freebook.common.Constant;
+import com.lance.freebook.Constant.Constant;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.container.DefaultHeader;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;

@@ -4,22 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.lance.freebook.Data.HttpData.HttpData;
 import com.lance.freebook.MVP.Base.BaseFragment;
 import com.lance.freebook.MVP.Entity.BookTypeDto;
 import com.lance.freebook.MVP.Home.BookClassActivity;
 import com.lance.freebook.MVP.Home.presenter.HomeStackFragmentPresenter;
 import com.lance.freebook.MVP.Home.view.HomeStackFragmentView;
 import com.lance.freebook.R;
-import com.lance.freebook.common.Constant;
+import com.lance.freebook.Constant.Constant;
 import com.xiaochao.lcrapiddeveloplibrary.SmartTab.SmartTabLayout;
 import com.xiaochao.lcrapiddeveloplibrary.SmartTab.UtilsV4.v4.FragmentPagerItem;
 import com.xiaochao.lcrapiddeveloplibrary.SmartTab.UtilsV4.v4.FragmentPagerItemAdapter;
@@ -30,9 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observer;
 
 /*
 * 书库

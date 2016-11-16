@@ -1,4 +1,4 @@
-package com.lance.freebook.common;
+package com.lance.freebook.Constant;
 
 /**
  * 常量类

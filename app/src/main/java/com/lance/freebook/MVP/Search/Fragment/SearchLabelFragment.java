@@ -1,6 +1,5 @@
 package com.lance.freebook.MVP.Search.Fragment;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +9,13 @@ import com.lance.freebook.MVP.Search.View.SearchLabelView;
 import com.lance.freebook.MVP.Search.presenter.SearchLablePresenter;
 import com.lance.freebook.R;
 import com.lance.freebook.Widget.TagCloudView;
-import com.lance.freebook.common.Constant;
+import com.lance.freebook.Constant.Constant;
 import com.xiaochao.lcrapiddeveloplibrary.viewtype.ProgressActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class SearchLabelFragment extends BaseFragment implements SearchLabelView{
