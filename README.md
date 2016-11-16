@@ -14,7 +14,7 @@
 
 ## 这里有那么一群志同道合的人在等你加入 QQ群:[173999252](https://jq.qq.com/?_wv=1027&k=41Zve9A)
 
-![](http://ac-mhke0kuv.clouddn.com/7421b8c60e66464f225a.jpg)
+![](image/image_2.gif)
 
 
 
