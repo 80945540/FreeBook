@@ -25,6 +25,7 @@
                         android:id="@+id/home_recommend_banner"
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
+                        android:background="@color/window_gray"
                         app:banner_pageChangeDuration="1000"
                         app:banner_pointAutoPlayAble="true"
                         app:banner_pointContainerBackground="@color/title_top_alpha"
