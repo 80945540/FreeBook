@@ -19,11 +19,11 @@
 
 > IOS岗位
 
-1、有扎实的Swift基础，了解应用基本算法/数据结构,了解基础设计模式;
-2、熟悉iOS SDK开发环境及相关开发工具;
-3、熟悉RxSwift、Sqlite；
-4、熟练掌握Autolayout、xib、storyboard；
-5、具有良好编码风格,有较强的独立工作能力和团队合作精神;
+1、有扎实的Swift基础，了解应用基本算法/数据结构,了解基础设计模式;  
+2、熟悉iOS SDK开发环境及相关开发工具;  
+3、熟悉RxSwift、Sqlite；  
+4、熟练掌握Autolayout、xib、storyboard；  
+5、具有良好编码风格,有较强的独立工作能力和团队合作精神;  
 
 > 前端-小程序方向
 
